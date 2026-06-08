@@ -28,7 +28,7 @@ export const projects: Project[] = [
     stack: ["React", "TypeScript", "Firebase", "Google Cloud Run", "Bun"],
     links: [
       {
-        label: "Case study",
+        label: "GitHub Case Study",
         href: "https://github.com/KevinS0402/SongSearchCaseStudy",
       },
     ],
