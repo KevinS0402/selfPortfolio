@@ -51,10 +51,10 @@ export const creativeWorks: CreativeWork[] = [
     title: "KSONG",
     role: "International Recording Artist & Producer",
     summary:
-      "Write, record, and produce original music that has built a global audience with over 190K total streams.",
+      "Wrote, recorded, and produced original music that built a global audience with over 190K total streams.",
     details: [
-      "Direct and edit music videos and promotional media across release campaigns.",
-      "Blend creative direction, production, and audience-building across independent artist work.",
+      "Directed and edited music videos and promotional media across release campaigns.",
+      "Blended creative direction, production, and audience-building across independent artist work.",
     ],
     metrics: [{ value: "190K+", label: "total streams" },
               { value: "66+", label: "total countries"}],
@@ -64,9 +64,9 @@ export const creativeWorks: CreativeWork[] = [
     title: "Vanderbilt Recording Studio",
     role: "President / Director",
     summary:
-      "Oversee studio operations and lead a multidisciplinary team of over 20 members.",
+      "Oversaw studio operations and led a multidisciplinary team of over 20 members.",
     details: [
-      "Host 10+ recording sessions and events per semester while doubling music output.",
+      "Hosted 10+ recording sessions and events per semester while doubling music output.",
       "Spearheaded a marketing presence that drove a 500% increase in views.",
     ],
     metrics: [
