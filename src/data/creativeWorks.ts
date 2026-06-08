@@ -19,7 +19,7 @@ export const creativeWorks: CreativeWork[] = [
     title: "Metro Nashville Public Schools",
     role: "Strategy & Program Development Intern",
     summary:
-      "Led an initiativeto address tech gaps for music educators through a Vanderbilt Ingram Scholarship-funded project.",
+      "Led an initiative to address tech gaps for music educators through a Vanderbilt Ingram Scholarship-funded project.",
     details: [
       "Developed an implementation toolkit to support district music program expansion and educator onboarding. This initiative was fully funded by the Vanderbilt Ingram Scholarship, a full-tuition merit award granted to less than 1% of students.",
     ],

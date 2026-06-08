@@ -15,25 +15,29 @@ export const profile = {
   },
 };
 
-export const impactStats = [
+export const achievements = [
   {
-    value: "10x",
-    label: "NIST efficiency gain",
-    detail: "SimPROCESD feature adopted after improving data processing and calculation workflows",
+    value: "<1%",
+    label: "Vanderbilt Ingram Scholar",
+    detail:
+      "Full-tuition service scholar who partnered with MNPS and Save The Music on an 8-week project driving 10x expansion, 80% stronger teacher confidence, and 50% faster onboarding.",
   },
   {
-    value: "100%",
-    label: "faster edge inference",
-    detail: "Signlect model deployment optimized for Raspberry Pi accessibility hardware",
+    value: "Global",
+    label: "Recognized computer scientist",
+    detail:
+      "Microsoft Imagine Cup World Finalist, VandyHacks X L3 Harris Award winner, and MESA NEDC national finalist for impactful software and engineering projects.",
   },
   {
-    value: "30s",
-    label: "music originality analysis",
-    detail: "SongSearch evaluates uploaded audio with cloud ML inference in under 30 seconds",
+    value: "501(c)(3)",
+    label: "DevelopIT nonprofit founder",
+    detail:
+      "Co-founded a recognized nonprofit providing pro-bono computer science education for underserved students.",
   },
   {
-    value: "150%+",
-    label: "client growth",
-    detail: "Ivy Journey web services increased clients with SEO, analytics, and performance work",
+    value: "190K+",
+    label: "Worldwide creative audience",
+    detail:
+      "Built an international audience through original music, production, video direction, and release strategy.",
   },
 ];

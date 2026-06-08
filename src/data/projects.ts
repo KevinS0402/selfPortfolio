@@ -3,6 +3,11 @@ export type Project = {
   domain: string;
   role: string;
   stack: string[];
+  links?: {
+    label: string;
+    href: string;
+  }[];
+  privateNote?: string;
   impact: {
     problem: string;
     audience: string;
@@ -21,6 +26,12 @@ export const projects: Project[] = [
     domain: "AI / Music Technology",
     role: "Independent project",
     stack: ["React", "TypeScript", "Firebase", "Google Cloud Run", "Bun"],
+    links: [
+      {
+        label: "Case study",
+        href: "https://github.com/KevinS0402/SongSearchCaseStudy",
+      },
+    ],
     impact: {
       problem: "Help artists and teams verify song originality before release using automated music analysis.",
       audience: "Musicians, producers, and music teams evaluating originality, quality, and marketability.",
@@ -33,10 +44,12 @@ export const projects: Project[] = [
     },
   },
   {
-    title: "Signlect",
+    title: "SignLect",
     domain: "Accessibility Tech",
     role: "Independent project",
     stack: ["Python", "PyTorch", "YOLO", "Ultralytics", "Raspberry Pi"],
+    privateNote:
+      "Private repo; model walkthrough and selected source excerpts available upon request.",
     impact: {
       problem: "Make American Sign Language detection and translation more accessible in educational settings.",
       audience: "Students with hearing impairments and educators using affordable classroom hardware.",
@@ -53,6 +66,12 @@ export const projects: Project[] = [
     domain: "Software Engineering",
     role: "Software engineering intern",
     stack: ["Python", "NumPy", "PySide6", "Matplotlib", "Git"],
+    links: [
+      {
+        label: "SURF presentation",
+        href: "https://drive.google.com/file/d/1dKzmMHg8W1KJuIwIzQ0t8eQo-AhPnSbn/view?usp=sharing",
+      },
+    ],
     impact: {
       problem: "Improve how researchers visualize and analyze data for Industrial AI simulation environments.",
       audience: "NIST researchers and open-source users working with SimPROCESD.",
@@ -85,6 +104,12 @@ export const projects: Project[] = [
     domain: "AI Product",
     role: "Team lead, VandyHacks X",
     stack: ["React", "JavaScript", "HTML", "CSS", "OpenAI API"],
+    links: [
+      {
+        label: "Devpost",
+        href: "https://devpost.com/software/happy-health-irg7fd",
+      },
+    ],
     impact: {
       problem: "Give users a more personal way to generate fitness plans and nutritious meal ideas from health metrics.",
       audience: "Hackathon users looking for practical, personalized health guidance.",
@@ -101,6 +126,12 @@ export const projects: Project[] = [
     domain: "Web Development",
     role: "Technology lead and web developer",
     stack: ["Web Development", "SEO", "Analytics", "Responsive Design"],
+    links: [
+      {
+        label: "Website",
+        href: "https://www.theivyjourney.com/",
+      },
+    ],
     impact: {
       problem: "Modernize a client-facing education company website and online services for discoverability and conversion.",
       audience: "Prospective Ivy Journey clients evaluating services online.",

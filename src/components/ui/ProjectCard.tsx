@@ -52,15 +52,43 @@ export function ProjectCard({ project, lens, index }: ProjectCardProps) {
           </div>
         ))}
       </div>
-      <div className="mt-auto flex flex-wrap gap-2 pt-8">
-        {project.stack.map((item) => (
-          <span
-            key={item}
-            className="rounded-full bg-soft px-3 py-1.5 text-xs font-medium text-muted ring-1 ring-line/70 transition group-hover:text-charcoal group-hover:ring-gold/30"
-          >
-            {item}
-          </span>
-        ))}
+      <div className="mt-auto pt-8">
+        {project.links?.length || project.privateNote ? (
+          <div className="mb-5 border-t border-line pt-4">
+            {project.links?.length ? (
+              <div className="flex flex-wrap gap-2">
+                {project.links.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="rounded-full bg-charcoal px-3 py-1.5 text-xs font-semibold text-paper ring-1 ring-charcoal/15 transition hover:bg-graphite focus-visible:shadow-[var(--focus-ring)]"
+                  >
+                    <span aria-hidden="true">🔗 </span>
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            ) : null}
+            {project.privateNote ? (
+              <p className="text-sm leading-6 text-muted">
+                <span aria-hidden="true">★ </span>
+                {project.privateNote}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
+        <div className="flex flex-wrap gap-2">
+          {project.stack.map((item) => (
+            <span
+              key={item}
+              className="rounded-full bg-soft px-3 py-1.5 text-xs font-medium text-muted ring-1 ring-line/70 transition group-hover:text-charcoal group-hover:ring-gold/30"
+            >
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
     </motion.article>
   );

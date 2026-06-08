@@ -83,7 +83,7 @@ function ProfilePortrait() {
 export function HeroSection() {
   return (
     <section id="top" className="relative overflow-hidden bg-soft">
-      <div className="mx-auto grid min-h-[calc(100vh-74px)] max-w-7xl content-center gap-12 px-5 py-12 md:px-8 md:py-20">
+      <div className="mx-auto grid max-w-7xl content-center gap-12 px-5 pb-0 pt-12 md:px-8 md:pt-20 lg:min-h-[calc(100vh-160px)]">
         <motion.div
           variants={reveal}
           initial="hidden"
@@ -129,10 +129,10 @@ export function HeroSection() {
           initial="hidden"
           animate="visible"
           transition={{ ...revealTransition, delay: 0.15 }}
-          className="flex flex-wrap items-center justify-between gap-4 border-t border-line pt-8 text-sm text-muted"
+          className="flex flex-wrap items-center justify-between gap-4 border-t border-line py-8 text-sm text-muted"
         >
           <p>
-            {profile.university} / {profile.major} / {profile.minor} minor / GPA 3.70 / {profile.classYear}
+            {profile.university} / {profile.major} / {profile.minor} / GPA 3.70 / {profile.classYear}
           </p>
           <div className="flex gap-2">
             <Button

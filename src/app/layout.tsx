@@ -9,9 +9,56 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kevin Song | Software, AI, Product",
+  metadataBase: new URL("https://kevinsong.dev"),
+  title: {
+    default: "Kevin Song | Software Engineer, AI Builder, Product Thinker",
+    template: "%s | Kevin Song",
+  },
   description:
-    "Portfolio for Kevin Song, a Vanderbilt CS student building cloud ML products, accessibility technology, AI evaluation workflows, and software tools.",
+    "Kevin Song is a Vanderbilt Computer Science student building AI products, accessibility technology, full-stack software, and user-centered tools.",
+  keywords: [
+    "Kevin Song",
+    "Vanderbilt",
+    "computer science",
+    "software engineer",
+    "AI",
+    "product",
+    "accessibility technology",
+    "portfolio",
+  ],
+  authors: [{ name: "Kevin Song", url: "https://kevinsong.dev" }],
+  creator: "Kevin Song",
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+  },
+  openGraph: {
+    title: "Kevin Song | Software Engineer, AI Builder, Product Thinker",
+    description:
+      "Vanderbilt Computer Science student building AI products, accessibility technology, full-stack software, and user-centered tools.",
+    url: "https://kevinsong.dev",
+    siteName: "Kevin Song Portfolio",
+    images: [
+      {
+        url: "/profile.jpg",
+        width: 1200,
+        height: 1600,
+        alt: "Portrait of Kevin Song",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Kevin Song | Software Engineer, AI Builder, Product Thinker",
+    description:
+      "Vanderbilt Computer Science student building AI products, accessibility technology, full-stack software, and user-centered tools.",
+    images: ["/profile.jpg"],
+  },
 };
 
 export default function RootLayout({
