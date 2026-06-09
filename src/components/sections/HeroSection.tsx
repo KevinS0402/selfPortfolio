@@ -132,7 +132,7 @@ export function HeroSection() {
           className="flex flex-wrap items-center justify-between gap-4 border-t border-line py-8 text-sm text-muted"
         >
           <p>
-            {profile.university} / {profile.major} / {profile.minor} / GPA 3.70 / {profile.classYear}
+            {profile.university} / {profile.major} / {profile.minor} / GPA 3.74 / {profile.classYear}
           </p>
           <div className="flex gap-2">
             <Button
