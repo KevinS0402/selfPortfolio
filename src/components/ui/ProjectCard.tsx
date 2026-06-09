@@ -9,9 +9,10 @@ type ProjectCardProps = {
   project: Project;
   lens: "impact" | "technical";
   index: number;
+  featured?: boolean;
 };
 
-export function ProjectCard({ project, lens, index }: ProjectCardProps) {
+export function ProjectCard({ project, lens, index, featured = false }: ProjectCardProps) {
   const content =
     lens === "impact"
       ? [
@@ -32,26 +33,38 @@ export function ProjectCard({ project, lens, index }: ProjectCardProps) {
       whileHover={{ y: -8 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ ...softSpring, delay: index * 0.04 }}
-      className="group flex min-h-[460px] flex-col rounded-[1.5rem] bg-paper p-6 shadow-glow ring-1 ring-line/70 transition-colors duration-300 hover:ring-gold/35"
+      className={`group flex flex-col rounded-[1.5rem] bg-paper shadow-glow ring-1 ring-line/70 transition-colors duration-300 hover:ring-gold/35 ${
+        featured ? "min-h-[420px] p-7 md:p-8" : "min-h-[460px] p-6"
+      }`}
     >
-      <div className="mb-8 flex items-start justify-between gap-4">
-        <Badge label={project.domain} />
-        <span className="text-lg font-semibold leading-none text-gold">
-          {String(index + 1).padStart(2, "0")}
-        </span>
-      </div>
-      <h3 className="max-w-md text-3xl font-semibold leading-[1.02] tracking-[-0.035em] text-charcoal md:text-4xl">
-        {project.title}
-      </h3>
-      <p className="mt-4 text-sm font-medium text-muted">{project.role}</p>
-      <div className="mt-8 space-y-5">
-        {content.map(([label, text]) => (
-          <div key={label} className="border-t border-line pt-4">
-            <p className="text-xs font-semibold text-gold">{label}</p>
-            <p className="mt-2 text-base leading-7 text-graphite">{text}</p>
+      <div className={featured ? "grid gap-8 lg:grid-cols-[0.82fr_1.18fr]" : undefined}>
+        <div>
+          <div className="mb-8 flex items-start justify-between gap-4">
+            <Badge label={project.domain} />
+            <span className="text-lg font-semibold leading-none text-gold">
+              {String(index + 1).padStart(2, "0")}
+            </span>
           </div>
-        ))}
+          <h3
+            className={`max-w-md font-semibold leading-[1.02] tracking-[-0.035em] text-charcoal ${
+              featured ? "text-4xl md:text-6xl" : "text-3xl md:text-4xl"
+            }`}
+          >
+            {project.title}
+          </h3>
+          <p className="mt-4 text-sm font-medium text-muted">{project.role}</p>
+        </div>
+
+        <div className={featured ? "space-y-5" : "mt-8 space-y-5"}>
+          {content.map(([label, text]) => (
+            <div key={label} className="border-t border-line pt-4">
+              <p className="text-xs font-semibold text-gold">{label}</p>
+              <p className="mt-2 text-base leading-7 text-graphite">{text}</p>
+            </div>
+          ))}
+        </div>
       </div>
+
       <div className="mt-auto pt-8">
         {project.links?.length || project.privateNote ? (
           <div className="mb-5 border-t border-line pt-4">
@@ -65,7 +78,7 @@ export function ProjectCard({ project, lens, index }: ProjectCardProps) {
                     rel="noreferrer"
                     className="rounded-full bg-charcoal px-3 py-1.5 text-xs font-semibold text-paper ring-1 ring-charcoal/15 transition hover:bg-graphite focus-visible:shadow-[var(--focus-ring)]"
                   >
-                    <span aria-hidden="true">🔗 </span>
+                    <span aria-hidden="true">{"\u{1F517} "}</span>
                     {link.label}
                   </a>
                 ))}
@@ -73,7 +86,7 @@ export function ProjectCard({ project, lens, index }: ProjectCardProps) {
             ) : null}
             {project.privateNote ? (
               <p className="text-sm leading-6 text-muted">
-                <span aria-hidden="true">★ </span>
+                <span aria-hidden="true">{"\u2605 "}</span>
                 {project.privateNote}
               </p>
             ) : null}

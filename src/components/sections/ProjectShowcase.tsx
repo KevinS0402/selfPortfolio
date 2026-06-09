@@ -7,6 +7,7 @@ import { projects } from "@/data/projects";
 
 export function ProjectShowcase() {
   const [lens, setLens] = useState<"impact" | "technical">("impact");
+  const [featuredProject, ...standardProjects] = projects;
 
   return (
     <section id="projects" className="bg-soft text-charcoal">
@@ -20,9 +21,12 @@ export function ProjectShowcase() {
           </div>
           <SegmentedControl value={lens} onChange={setLens} />
         </div>
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} lens={lens} index={index} />
+        <div className="mt-10">
+          <ProjectCard project={featuredProject} lens={lens} index={0} featured />
+        </div>
+        <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {standardProjects.map((project, index) => (
+            <ProjectCard key={project.title} project={project} lens={lens} index={index + 1} />
           ))}
         </div>
       </div>

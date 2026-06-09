@@ -15,6 +15,13 @@ const caseStudyCopy = {
     impact:
       "That kept the accessibility tool closer to the served community: portable, lower-cost, and usable in the settings where support is needed.",
   },
+  "Canary.ai": {
+    principle: "Relevance over raw volume",
+    decision:
+      "Prioritized location-relevant emergency signals across local news, social posts, and weather alerts instead of flooding users with every available update.",
+    impact:
+      "That made the product more actionable during severe weather: users could get timely live notifications and reach critical information 70% faster.",
+  },
   AIHealth: {
     principle: "Time-boxed prioritization",
     decision:

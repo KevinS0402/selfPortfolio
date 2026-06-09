@@ -62,6 +62,44 @@ export const projects: Project[] = [
     },
   },
   {
+    title: "Canary.ai",
+    domain: "Emergency Tech / AI",
+    role: "Vanderbilt Senior CS Capstone Project",
+    stack: [
+      "React Native",
+      "Bun",
+      "Supabase",
+      "Vector Embeddings",
+      "National Weather Service API",
+    ],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/KevinS0402/Canary.ai",
+      },
+      {
+        label: "Poster",
+        href: "https://drive.google.com/file/d/1dFMBtkJUpEBkNZdVTDllYQCR3ce0_pZx/view?usp=sharing",
+      },
+    ],
+    impact: {
+      problem:
+        "Help people find critical, location-specific emergency information faster during severe weather events.",
+      audience:
+        "Local residents who need relevant news, social updates, weather alerts, and live notifications during emergency conditions.",
+      outcome:
+        "Led a 3-member team to aggregate local news, location-relevant social posts, and National Weather Service alerts, reducing critical weather information access time by 70%.",
+    },
+    technical: {
+      architecture:
+        "Built a React Native and Bun mobile app backed by Supabase search for live emergency information retrieval.",
+      decisions:
+        "Integrated semantic vector embeddings to filter incoming local news, social posts, and NWS alerts by user-location relevance.",
+      depth:
+        "Delivered live update notifications and presented the project at Vanderbilt's annual CS Senior Symposium.",
+    },
+  },
+  {
     title: "NIST SimPROCESD Tooling",
     domain: "Software Engineering",
     role: "Software engineering intern",
