@@ -8,7 +8,7 @@ export const profile = {
   roles: ["Software Engineering", "Artificial Intelligence", "Product Management"],
   profileImage: "/profile.jpg",
   links: {
-    resume: "/resume.pdf",
+    resume: "/kevin-song-resume-2026-cs-pm.pdf",
     github: "https://github.com/KevinS0402",
     linkedin: "https://www.linkedin.com/in/kevinsong0402/",
     email: "mailto:kevin.song.1@vanderbilt.edu",
