@@ -1,0 +1,24 @@
+# Kevin Song
+
+Kevin Song is a Vanderbilt University Computer Science student, Ingram Scholar, software engineer, and AI builder working across AI products, accessibility technology, full-stack software, and product-focused tools.
+
+## Primary links
+
+- Website: https://kevinsong.dev
+- Resume: https://kevinsong.dev/kevin-song-resume-2026-cs-pm.pdf
+- GitHub: https://github.com/KevinS0402
+- LinkedIn: https://www.linkedin.com/in/kevinsong0402/
+- Email: kevin.song.1@vanderbilt.edu
+
+## Selected public project proof
+
+- SongSearch case study: https://github.com/KevinS0402/SongSearchCaseStudy
+- Canary.ai GitHub: https://github.com/KevinS0402/Canary.ai
+- Canary.ai poster: https://drive.google.com/file/d/1dFMBtkJUpEBkNZdVTDllYQCR3ce0_pZx/view?usp=sharing
+- AIHealth Devpost: https://devpost.com/software/happy-health-irg7fd
+- NIST SimPROCESD SURF presentation: https://drive.google.com/file/d/1dKzmMHg8W1KJuIwIzQ0t8eQo-AhPnSbn/view?usp=sharing
+- Ivy Journey web platform: https://www.theivyjourney.com/
+
+## Search context
+
+Relevant identity terms include Kevin Song, Vanderbilt University, Vanderbilt Computer Science, Vanderbilt Ingram Scholar, software engineer, AI builder, accessibility technology, product management, and portfolio.

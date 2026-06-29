@@ -104,6 +104,10 @@ export function HeroSection() {
               analysis, computer vision accessibility tech, NIST research tooling, AI evaluation,
               and full-stack web products.
             </p>
+            <p className="mt-4 max-w-xl text-sm font-medium leading-6 text-graphite md:text-base">
+              Kevin Song is a Vanderbilt University Computer Science student and Ingram Scholar
+              building AI, accessibility, and product-focused software.
+            </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button href="#projects" variant="primary">
                 View projects

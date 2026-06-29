@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { profile } from "@/data/profile";
+import { projects } from "@/data/projects";
 import "./globals.css";
 
 const inter = Inter({
@@ -8,17 +10,79 @@ const inter = Inter({
   display: "swap",
 });
 
+const siteUrl = "https://kevinsong.dev";
+const seoTitle = "Kevin Song | Vanderbilt Computer Science Student, AI Builder";
+const seoDescription =
+  "Kevin Song is a Vanderbilt University Computer Science student, Ingram Scholar, software engineer, and AI builder sharing a portfolio of AI, accessibility, and product-focused software.";
+
+const publicIdentityLinks = Array.from(
+  new Set([
+    profile.links.github,
+    profile.links.linkedin,
+    ...projects.flatMap((project) => project.links?.map((link) => link.href) ?? []),
+  ]),
+);
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${siteUrl}/#profile-page`,
+    url: siteUrl,
+    name: "Kevin Song Portfolio",
+    description: seoDescription,
+    mainEntity: {
+      "@type": "Person",
+      "@id": `${siteUrl}/#kevin-song`,
+      name: profile.name,
+      url: siteUrl,
+      image: `${siteUrl}${profile.profileImage}`,
+      description: seoDescription,
+      jobTitle: "Software Engineer and AI Builder",
+      affiliation: {
+        "@type": "CollegeOrUniversity",
+        name: profile.university,
+        url: "https://www.vanderbilt.edu/",
+      },
+      award: "Vanderbilt Ingram Scholar",
+      knowsAbout: [
+        "Computer Science",
+        "Software Engineering",
+        "Artificial Intelligence",
+        "Accessibility Technology",
+        "Product Management",
+        "Vanderbilt Ingram Scholarship",
+      ],
+      sameAs: publicIdentityLinks,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: "Kevin Song Portfolio",
+    description: seoDescription,
+    publisher: {
+      "@id": `${siteUrl}/#kevin-song`,
+    },
+  },
+];
+
+const structuredDataJson = JSON.stringify(structuredData).replace(/</g, "\\u003c");
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kevinsong.dev"),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Kevin Song | Software Engineer, AI Builder, Product Thinker",
+    default: seoTitle,
     template: "%s | Kevin Song",
   },
-  description:
-    "Kevin Song is a Vanderbilt Computer Science student building AI products, accessibility technology, full-stack software, and user-centered tools.",
+  description: seoDescription,
   keywords: [
     "Kevin Song",
     "Vanderbilt",
+    "Vanderbilt University",
+    "Vanderbilt Ingram Scholar",
     "computer science",
     "software engineer",
     "AI",
@@ -36,10 +100,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "Kevin Song | Software Engineer, AI Builder, Product Thinker",
-    description:
-      "Vanderbilt Computer Science student building AI products, accessibility technology, full-stack software, and user-centered tools.",
-    url: "https://kevinsong.dev",
+    title: seoTitle,
+    description: seoDescription,
+    url: siteUrl,
     siteName: "Kevin Song Portfolio",
     images: [
       {
@@ -54,9 +117,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kevin Song | Software Engineer, AI Builder, Product Thinker",
-    description:
-      "Vanderbilt Computer Science student building AI products, accessibility technology, full-stack software, and user-centered tools.",
+    title: seoTitle,
+    description: seoDescription,
     images: ["/profile.jpg"],
   },
 };
@@ -68,6 +130,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: structuredDataJson }}
+        />
+      </head>
       <body className={`${inter.variable} font-sans`} suppressHydrationWarning>
         {children}
       </body>
