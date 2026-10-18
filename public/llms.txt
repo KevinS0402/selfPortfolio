@@ -1,24 +1,28 @@
 # Kevin Song
 
-Kevin Song is a Vanderbilt University Computer Science student, Ingram Scholar, software engineer, and AI builder working across AI products, accessibility technology, full-stack software, and product-focused tools.
+> Kevin Song is a Vanderbilt University computer science student with a business minor and an Ingram Scholar. His work connects software engineering, applied AI, product development, community initiatives, and bilingual music.
 
-## Primary links
+This is a supplementary guide to Kevin’s public portfolio. The linked pages contain the full descriptions, roles, source links, and project limitations.
 
-- Website: https://kevinsong.dev
-- Resume: https://kevinsong.dev/kevin-song-resume-2026-cs-pm.pdf
-- GitHub: https://github.com/KevinS0402
-- LinkedIn: https://www.linkedin.com/in/kevinsong0402/
-- Email: kevin.song.1@vanderbilt.edu
+## Profile and chapters
 
-## Selected public project proof
+- [Home](https://kevinsong.dev/): Kevin Song’s portfolio and introduction.
+- [About Kevin Song](https://kevinsong.dev/about/): Vanderbilt, the Ingram Scholarship, and music in English and Chinese as KSONG (宋凯文).
+- [Engineering](https://kevinsong.dev/engineering/): Software and AI projects; experience at Elysian, Ivy Journey, NIST, and Handshake MOVE. Elysian work is described at a high level.
+- [Impact](https://kevinsong.dev/impact/): DevelopIT co-founder, Ingram-funded MNPS / Save The Music initiative, and Vanderbilt Recording Studio leadership.
 
-- SongSearch case study: https://github.com/KevinS0402/SongSearchCaseStudy
-- Canary.ai GitHub: https://github.com/KevinS0402/Canary.ai
-- Canary.ai poster: https://drive.google.com/file/d/1dFMBtkJUpEBkNZdVTDllYQCR3ce0_pZx/view?usp=sharing
-- AIHealth Devpost: https://devpost.com/software/happy-health-irg7fd
-- NIST SimPROCESD SURF presentation: https://drive.google.com/file/d/1dKzmMHg8W1KJuIwIzQ0t8eQo-AhPnSbn/view?usp=sharing
-- Ivy Journey web platform: https://www.theivyjourney.com/
+## Project case studies
 
-## Search context
+- [SongSearch](https://kevinsong.dev/work/songsearch/): Music analysis using a React/TypeScript interface, Firebase, and cloud inference.
+- [SignLect](https://kevinsong.dev/work/signlect/): ASL sign detection with a custom YOLO model on Raspberry Pi. This is sign recognition, not general ASL translation; the repository is private.
+- [Canary.ai](https://kevinsong.dev/work/canary-ai/): A team-built emergency-information app using React Native, Bun, Supabase, and location-aware retrieval.
+- [AIHealth](https://kevinsong.dev/work/aihealth/): An exploratory VandyHacks fitness and meal-planning chatbot prototype, with links to Devpost and the public repository.
 
-Relevant identity terms include Kevin Song, Vanderbilt University, Vanderbilt Computer Science, Vanderbilt Ingram Scholar, software engineer, AI builder, accessibility technology, product management, and portfolio.
+## Public profiles and references
+
+- [LinkedIn](https://www.linkedin.com/in/kevinsong0402/): Kevin Song’s professional profile.
+- [GitHub](https://github.com/KevinS0402): Kevin Song’s public repositories.
+- [KSONG](https://ksongfire.com/): Kevin’s separate bilingual music website.
+- [Vanderbilt Ingram Scholars directory](https://www.vanderbilt.edu/ingram/our-scholars/): Vanderbilt’s public directory includes Kevin Song, computer science, and a business minor.
+- [Resume](https://kevinsong.dev/kevin-song-resume-2026-cs-pm.pdf): Kevin Song’s resume.
+- [Contact](https://kevinsong.dev/about/#contact-form): Contact form and direct email options.

@@ -1,14 +1,7 @@
 import type { MetadataRoute } from "next";
-
+import { site } from "@/lib/site";
+import { featuredProjects } from "@/data/journey";
 export const dynamic = "force-static";
-
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: "https://kevinsong.dev",
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-  ];
+  return ["/", "/engineering/", "/impact/", "/about/", ...featuredProjects.map(project => `/work/${project.slug}/`)].map(path => ({ url: `${site.url}${path}` }));
 }

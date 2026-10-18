@@ -1,0 +1,39 @@
+{
+  "portrait": {
+    "320": {
+      "avif": "/media/portrait-320-2038c5dacf.avif",
+      "webp": "/media/portrait-320-c2078ce799.webp"
+    },
+    "640": {
+      "avif": "/media/portrait-640-093ffda31e.avif",
+      "webp": "/media/portrait-640-f5896d783d.webp"
+    },
+    "960": {
+      "avif": "/media/portrait-960-afcbe903ef.avif",
+      "webp": "/media/portrait-960-f2925f0971.webp"
+    }
+  },
+  "portraitJpeg": "/media/portrait-960-12f5f69220.jpg",
+  "monogram": "/media/monogram-dark-192-5e7e5ad0fb.png",
+  "faviconDark": "/media/favicon-dark-64-0496341efa.png",
+  "faviconLight": "/media/favicon-light-64-86664698fb.png",
+  "worldStill": "/media/worlds-still-2400-bfa6be13c2.webp",
+  "socialImage": "/media/kevin-song-social-794b6d8be4.png",
+  "socialAlt": "Kevin Song — software, AI and product; Vanderbilt University Ingram Scholar",
+  "socialWidth": 1200,
+  "socialHeight": 630,
+  "sizes": {
+    "/media/portrait-320-2038c5dacf.avif": 9090,
+    "/media/portrait-320-c2078ce799.webp": 13900,
+    "/media/portrait-640-093ffda31e.avif": 25536,
+    "/media/portrait-640-f5896d783d.webp": 41734,
+    "/media/portrait-960-afcbe903ef.avif": 52519,
+    "/media/portrait-960-f2925f0971.webp": 85708,
+    "/media/portrait-960-12f5f69220.jpg": 119359,
+    "/media/monogram-dark-192-5e7e5ad0fb.png": 8008,
+    "/media/favicon-dark-64-0496341efa.png": 1471,
+    "/media/favicon-light-64-86664698fb.png": 4689,
+    "/media/worlds-still-2400-bfa6be13c2.webp": 144390,
+    "/media/kevin-song-social-794b6d8be4.png": 143377
+  }
+}

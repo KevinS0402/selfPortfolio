@@ -1,0 +1,9 @@
+{
+  "name": "kevin-portfolio-contact",
+  "private": true,
+  "type": "module",
+  "main": "index.mjs",
+  "engines": { "node": "22" },
+  "scripts": { "test": "node --test contact-handler.test.mjs" },
+  "dependencies": { "firebase-functions": "^7.4.0" }
+}

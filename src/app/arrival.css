@@ -1,0 +1,199 @@
+/* A readable arrival, followed by continuous signals through Kevin's work. */
+.page-journey { transform-origin: 0 0; }
+#main-content { overflow-x: clip; }
+.page-arrival { animation: page-turn-arrival .85s cubic-bezier(.22,1,.36,1); }
+.reveal.is-revealed { animation: scroll-unfold .85s both cubic-bezier(.22,1,.36,1); }
+.reveal.is-ready:not(.is-revealed) { opacity: 0; transform: translateY(44px); }
+.reveal-left.is-ready:not(.is-revealed) { transform: translateX(-64px); }
+.reveal-right.is-ready:not(.is-revealed) { transform: translateX(64px); }
+.reveal.is-ready:not(.is-revealed):focus-within { opacity: 1; transform: none; }
+.reveal-left.is-revealed { animation-name: scroll-left; }
+.reveal-right.is-revealed { animation-name: scroll-right; }
+.reveal-unfold.is-revealed { animation-name: scroll-page-unfold; }
+.reveal-turn.is-revealed { animation-name: scroll-art-turn; }
+.world-rocket-shape { stroke-width: 1; stroke-linejoin: round; stroke-linecap: round; }
+.world-rocket-still { display: none; }
+.rocket-flame { animation: rocket-flame .6s ease-in-out infinite alternate; }
+@keyframes rocket-flame { to { opacity: .35; } }
+.hero-type-word { display: inline-block; }
+.hero-type-letter { position: relative; }
+.is-typing-name .hero-type-letter { opacity: 0; animation: hero-letter .001s step-end forwards; animation-delay: var(--letter-delay); }
+.is-typing-name .hero-type-letter::after { content: ""; position: absolute; width: 2px; height: .75em; right: -3px; top: .15em; background: var(--gold); opacity: 0; animation: hero-caret .095s step-end; animation-delay: var(--letter-delay); }
+.is-typing-name em .hero-type-letter:last-child::after { animation: hero-caret 1s step-end infinite; animation-delay: var(--letter-delay); }
+@keyframes hero-letter { to { opacity: 1; } }
+@keyframes hero-caret { 0%,40%,70% { opacity: 1; } 55%,100% { opacity: 0; } }
+@keyframes scroll-left { from { opacity: 0; transform: translateX(-64px); } to { opacity: 1; transform: none; } }
+@keyframes scroll-right { from { opacity: 0; transform: translateX(64px); } to { opacity: 1; transform: none; } }
+@keyframes scroll-page-unfold { from { opacity: .1; transform: perspective(1200px) rotateX(-14deg) translateY(40px); transform-origin: top; } to { opacity: 1; transform: none; } }
+@keyframes scroll-art-turn { from { opacity: .1; transform: rotate(-5deg) scale(.9); } to { opacity: 1; transform: none; } }
+@keyframes scroll-unfold { from { opacity: .3; transform: translateY(44px); } to { opacity: 1; transform: none; } }
+.home-intro.reveal.is-revealed { animation-name: journey-enter; }
+.prose > .reveal + .reveal { margin-top: 24px; }
+.ksong-art { width: 100%; }
+.explore-button:hover .arrow-down { transform: rotate(90deg) translateX(4px); }
+#explore { scroll-margin-top: 24px; }
+.post-author { display: flex; gap: 14px; align-items: center; margin-bottom: 18px; }
+.post-author img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; object-position: center 30%; }
+.post-author strong { display: block; font-size: 16px; }
+.post-author div > span { display: block; margin-top: 5px; color: var(--secondary); font-size: 12px; }
+.linkedin-mark { display: grid; place-items: center; width: 27px; height: 27px; margin-left: auto; background: #0a66c2; color: white; border-radius: 3px; font: bold 20px/1 Arial,sans-serif; }
+.post-metadata { display: flex; flex-wrap: wrap; gap: 8px 18px; font: 11px/1.8 ui-monospace,Consolas,monospace; color: var(--secondary); padding-bottom: 24px; border-bottom: 1px solid var(--rule); margin-bottom: 24px; }
+.post-topics { margin-top: 24px; }
+.post-topics ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.post-topics li { color: var(--gold); border: 1px solid var(--rule); border-radius: 24px; padding: 7px 12px; font-size: 11px; line-height: 1.4; }
+.linkedin-post .post-hashtags { margin-top: 20px; color: var(--gold); font-size: 13px; }
+@keyframes page-turn-arrival {
+  from { transform: perspective(1800px) rotateY(-5deg) translateY(18px); }
+  to { transform: none; }
+}
+.typed-code { margin-top: 28px; border-left: 1px solid var(--gold); padding-left: 18px; color: var(--gold); max-width: 100%; }
+.code-caption { display: block; font: 10px/1.6 ui-monospace,Consolas,monospace; color: var(--secondary); margin-bottom: 10px; }
+.typed-code pre { margin: 0; font: 12px/1.8 ui-monospace,Consolas,monospace; white-space: pre; }
+.code-line { display: block; width: var(--line-length); max-width: 100%; }
+.is-typing .code-line { animation: type-line .65s steps(28,end) both; animation-delay: var(--line-delay); }
+.is-typing .code-line:last-child::after { content: "▍"; animation: code-cursor 1.2s step-end 4; }
+@keyframes type-line { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
+@keyframes code-cursor { 50% { opacity: 0; } }
+.project-identity-art { display: block; color: var(--gold); width: 240px; max-width: 100%; height: 105px; margin-block: 16px; }
+.experience-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; max-width: none; margin: 0 48px 0 0; padding-bottom: 36px; }
+.experience-visual { align-self: start; max-width: 340px; padding-top: 8px; color: var(--gold); }
+.organization-mark { display: flex; align-items: center; gap: 14px; min-height: 60px; }
+.organization-mark img { width: auto; height: auto; max-width: 160px; max-height: 54px; object-fit: contain; }
+.experience-brand-evaluation .organization-mark img { width: 44px; height: 44px; }
+.organization-mark > span { color: var(--foreground); font-size: 22px; letter-spacing: -.04em; }
+.experience-brand-browser .organization-mark img { background: var(--foreground); padding: 8px 14px; border-radius: 3px; }
+.chapter-hero-split { overflow: clip; }
+.experience-visual .art-motif { width: 100%; height: auto; display: block; margin-block: 18px 12px; }
+.visual-caption { display: block; color: var(--secondary); font: 11px/1.7 ui-monospace,Consolas,monospace; }
+.experience-body { min-width: 0; max-width: 65ch; animation: contribution-arrival .5s ease-out; }
+@keyframes contribution-arrival { from { transform: translateY(12px); } to { transform: none; } }
+.experience-dates { display: block; margin-top: 8px; color: var(--gold); font: 11px/1.6 ui-monospace,Consolas,monospace; }
+.engineering-chapter .experience-name { font-weight: 650; color: var(--gold); font-size: 26px; }
+.experience-focus { color: var(--foreground); font-weight: 500; }
+.experience-row summary { border-left: 2px solid transparent; padding-left: 16px; }
+.experience-row[open] summary { border-left-color: var(--gold); background: linear-gradient(90deg,rgba(214,180,94,.07),transparent 55%); }
+.experience-detail { padding-left: 18px; }
+.current-label { font-weight: 400; }
+.creative-orbit { margin: 0; width: 100%; max-width: 560px; color: var(--gold); }
+.ksong-initial { font-weight: 800; }
+.creative-orbit svg { width: 100%; height: auto; display: block; overflow: visible; }
+.creative-orbit-system, .creative-orbit-ring { transform-origin: 250px 250px; animation: creative-revolve 36s linear infinite; }
+.orbit-symbol { transform-box: fill-box; transform-origin: center; animation: creative-counter-revolve 36s linear infinite; }
+@keyframes creative-revolve { to { transform: rotate(360deg); } }
+@keyframes creative-counter-revolve { to { transform: rotate(-360deg); } }
+.waypoint-art { display: block; width: 220px; height: 96px; max-width: 100%; color: var(--gold); margin-top: 20px; }
+.plot-draw { stroke-dasharray: 280; animation: plot-draw 5s ease-in-out infinite; }
+@keyframes plot-draw { 0% { stroke-dashoffset: 280; } 50%,100% { stroke-dashoffset: 0; } }
+.evaluation-check { animation: evaluation-check 4s ease-in-out infinite; }
+@keyframes evaluation-check { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+.city-windows { animation: city-light 5s ease-in-out infinite; }
+@keyframes city-light { 0%,100% { opacity: .35; } 50% { opacity: 1; } }
+.art-toolkit { transform-origin: center; animation: book-turn 6s ease-in-out infinite; }
+@keyframes book-turn { 0%,100% { transform: perspective(600px) rotateY(-7deg); } 50% { transform: perspective(600px) rotateY(7deg); } }
+@media (min-width:1024px) {
+  .engineering-chapter .section-heading { position: sticky; top: 88px; z-index: 3; background: var(--background); padding-block: 20px; }
+  .experience-visual { position: sticky; top: 164px; }
+  .impact-story-visual { position: sticky; top: 164px; align-self: start; margin-top: 56px; }
+  .chapter-hero-split .chapter-hero-inner { align-items: start; }
+  .chapter-hero-split .chapter-hero-inner > div:first-child { position: sticky; top: 128px; }
+}
+@media (max-width:1023px) {
+  .ksong-section > div:first-child { display: contents; }
+  .ksong-section { gap: 28px; }
+  .ksong-section h2 { grid-row: 1; margin-bottom: 0; }
+  .ksong-section > .ksong-art { grid-row: 2; justify-self: center; }
+  .ksong-section .ksong-title { grid-row: 1; }
+  .ksong-section .ksong-copy { grid-row: 3; }
+  .ksong-section p { max-width: 65ch; }
+  .ksong-section .text-link { grid-row: 4; justify-self: start; margin-top: 0; }
+  .experience-detail { gap: 28px; margin-right: 0; }
+  .experience-visual { max-width: 260px; }
+}
+@media (max-width:639px) {
+  .experience-detail { grid-template-columns: 1fr; gap: 24px; }
+  .experience-visual { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 16px; max-width: none; align-items: center; }
+  .experience-visual .art-motif { margin: 0; }
+  .visual-caption { grid-column: 1 / -1; }
+  .organization-mark img { max-width: 120px; max-height: 44px; }
+  .organization-mark > span { font-size: 16px; }
+  .experience-brand-evaluation .organization-mark { gap: 8px; }
+  .experience-brand-evaluation .organization-mark img { width: 32px; height: 32px; }
+  .typed-code pre { font-size: 11px; }
+  .waypoint-art { width: 190px; height: 84px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .world-rocket-moving { display: none; }
+  .world-rocket-still { display: block; }
+  .rocket-flame, .is-typing-name .hero-type-letter, .is-typing-name .hero-type-letter::after { animation: none; }
+  .is-typing-name .hero-type-letter { opacity: 1; }
+  .reveal.is-ready:not(.is-revealed) { opacity: 1; transform: none; }
+  .creative-orbit-system, .creative-orbit-ring, .orbit-symbol { animation: none !important; transform: none !important; }
+  .page-arrival, .is-typing .code-line, .is-typing .code-line::after, .experience-body, .plot-draw, .evaluation-check, .city-windows, .art-toolkit { animation: none !important; transform: none !important; clip-path: none !important; }
+}
+
+/* Relevant tools orbit the chapter hero scenery. */
+.chapter-scenery { overflow: visible; }
+.chapter-scenery-image-frame { position: absolute; inset: 0; overflow: hidden; }
+.chapter-scenery-orbit { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; color: var(--gold); pointer-events: none; }
+@media (max-width:639px) { .chapter-scenery-orbit { scale: .88; } }
+.motif-orbit-track { transform-origin: 0 0; animation: creative-revolve var(--orbit-duration) linear infinite; animation-delay: var(--orbit-phase); }
+.motif-orbit-counter { transform-origin: 0 0; animation: creative-counter-revolve var(--orbit-duration) linear infinite; animation-delay: var(--orbit-phase); }
+.planet-orbit-line { stroke: var(--gold); stroke-width: 1; opacity: .65; }
+.motif-orbit-depth { transform-origin: 0 0; animation: planet-depth var(--orbit-duration) linear infinite; animation-delay: var(--orbit-phase); }
+@keyframes planet-depth { 0%,50%,100% { opacity: .85; scale: .9; } 25% { opacity: 1; scale: 1.08; } 75% { opacity: .6; scale: .72; } }
+.motif-orbit-icon { color: var(--foreground); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.ksong-section h2 { font-family: var(--font-inter),Arial,sans-serif; font-weight: 800; font-style: normal; color: var(--foreground); }
+@media (prefers-reduced-motion:reduce) {
+  .motif-orbit-track, .motif-orbit-counter, .motif-orbit-depth { animation: none; opacity: 1; scale: 1; }
+  .motif-satellites > g:first-child .motif-orbit-track { transform: rotate(15deg); }
+  .motif-satellites > g:first-child .motif-orbit-counter { transform: rotate(-15deg); }
+  .motif-satellites > g:nth-child(2) .motif-orbit-track { transform: rotate(60deg); }
+  .motif-satellites > g:nth-child(2) .motif-orbit-counter { transform: rotate(-60deg); }
+  .motif-satellites > g:nth-child(3) .motif-orbit-track { transform: rotate(115deg); }
+  .motif-satellites > g:nth-child(3) .motif-orbit-counter { transform: rotate(-115deg); }
+  .motif-satellites > g:nth-child(4) .motif-orbit-track { transform: rotate(165deg); }
+  .motif-satellites > g:nth-child(4) .motif-orbit-counter { transform: rotate(-165deg); }
+}
+
+
+/* A tiny, locally hosted Song-style subset for the artist's Chinese name. */
+@font-face {
+  font-family: "Artist Song Serif";
+  src: url("/fonts/noto-serif-sc-artist-name.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+5B8B, U+51EF, U+6587;
+}
+.ksong-section h2 { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2em .14em; }
+.ksong-section h2 .ksong-chinese-name {
+  font-family: "Artist Song Serif", "Songti SC", SimSun, serif;
+  font-size: .86em;
+  font-style: italic;
+  font-synthesis: style;
+  font-weight: 400;
+  color: var(--gold);
+  letter-spacing: .015em;
+  white-space: nowrap;
+  line-height: 1.2;
+  padding-right: .12em;
+}
+
+
+/* The monogram and readable name share one home link. */
+.wordmark { display: inline-flex; align-items: center; gap: 12px; flex-shrink: 0; min-height: 44px; }
+.wordmark-name { white-space: nowrap; }
+.site-monogram { display: block; width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+@media (max-width:639px) {
+  .wordmark { gap: 8px; }
+  .site-monogram { width: 34px; height: 34px; }
+  .header-inner { gap: 12px; }
+  .header-actions { gap: 12px; }
+  .menu-toggle { gap: 8px; }
+}
+@media (max-width:359px) {
+  .wordmark { gap: 6px; }
+  .site-monogram { width: 30px; height: 30px; }
+  .header-inner { gap: 6px; }
+  .header-actions { gap: 8px; }
+}

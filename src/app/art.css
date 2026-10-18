@@ -1,0 +1,225 @@
+/* The shared gold line moves between engineering, community, and music. */
+.art-home { isolation: isolate; }
+.art-home .home-hero-grid { grid-template-columns: minmax(0,1fr) 360px; gap: 64px; padding-block: 56px 144px; }
+.art-home .home-intro h1 { font-size: clamp(80px,9.8vw,144px); letter-spacing: -.075em; white-space: nowrap; margin-bottom: 16px; }
+.home-intro h1 em, .wordmark-song, .chapter-hero h1 em { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-style: italic; color: var(--gold); letter-spacing: -.065em; }
+.art-home .home-statement { font-family: Georgia, "Times New Roman", serif; font-size: clamp(28px,3.25vw,46px); line-height: 1.18; letter-spacing: -.035em; }
+.art-home .home-context { margin-top: 24px; font-size: 14px; }
+.art-home .hero-actions { margin-top: 24px; }
+.button { border-radius: 4px; }
+.wordmark { font-family: var(--font-inter), Arial, sans-serif; font-size: 20px; letter-spacing: -.04em; }
+.wordmark-song { font-size: 1.05em; }
+.art-home .home-portrait { padding: 0; width: 100%; max-width: 360px; transform: rotate(3deg); align-self: start; margin-top: 12px; }
+.art-home .home-portrait::before { display: none; }
+.art-home .portrait { aspect-ratio: 1 / 1.17; border: 1px solid #77777f; }
+.journey-art { position: absolute; inset: 0; color: var(--gold); pointer-events: none; }
+.journey-thread { position: absolute; inset: 0; width: 100%; height: 100%; stroke: currentColor; stroke-width: 1; overflow: visible; opacity: .85; }
+.portrait-orbits { opacity: .35; }
+.art-solid { fill: currentColor; stroke: none; }
+.art-motif { width: 100%; height: auto; stroke: currentColor; stroke-width: 1; overflow: visible; }
+.hero-world { position: absolute; bottom: 12px; width: 200px; color: var(--gold); opacity: .85; transition: opacity .35s; }
+.hero-world span { position: absolute; top: 50%; left: 78%; font: 12px ui-monospace, Consolas, monospace; color: var(--secondary); }
+.hero-world-engineering { left: 3%; width: 220px; bottom: 24px; }
+.hero-world-engineering .art-motif { opacity: .3; }
+.hero-world-engineering span { left: 8%; top: 0; }
+.hero-world-impact { left: 40%; }
+.hero-world-about { right: 1%; width: 250px; }
+.hero-world-about span { left: 66%; top: -4px; }
+.chapter-composition { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); border-top: 1px solid var(--rule); padding-block: 24px 32px; }
+.chapter-artlink { position: relative; display: flex; flex-direction: column; padding: 12px 32px 0; height: 100%; min-height: 328px; }
+.chapter-composition > :first-child .chapter-artlink { padding-left: 0; }
+.chapter-composition > :last-child .chapter-artlink { padding-right: 0; }
+.chapter-composition > :not(:last-child) .chapter-artlink { border-right: 1px solid var(--rule); }
+.chapter-illustration { height: 124px; position: relative; margin-bottom: 24px; }
+.chapter-outline { position: absolute; left: -8px; top: -20px; color: transparent; -webkit-text-stroke: .6px #73737c; opacity: .65; font-size: 132px; line-height: 1; font-weight: 700; letter-spacing: -.07em; }
+.chapter-illustration .art-motif { position: absolute; width: 210px; right: -8px; top: 0; color: var(--gold); opacity: .9; transition: opacity .3s, transform .5s; }
+.chapter-artlink h2 { font: 500 clamp(25px,2.4vw,36px)/1.2 Georgia, "Times New Roman", serif; letter-spacing: -.03em; margin-bottom: 16px; }
+.chapter-artlink p { font: 13px/1.8 ui-monospace, Consolas, monospace; color: var(--secondary); max-width: 33ch; margin-bottom: 20px; }
+.chapter-circle { display: grid; place-items: center; width: 46px; height: 46px; border: 1px solid #73737c; border-radius: 50%; margin-top: auto; color: var(--foreground); transition: border-color .25s,color .25s; }
+.chapter-circle .arrow { width: 21px; }
+.chapter-artlink:hover .chapter-circle, .chapter-artlink:focus-visible .chapter-circle { border-color: var(--gold); color: var(--gold); }
+.chapter-artlink:hover .arrow, .chapter-artlink:focus-visible .arrow { transform: translateX(4px); }
+.chapter-artlink:hover .art-motif, .chapter-artlink:focus-visible .art-motif { opacity: 1; transform: translateY(-4px); }
+.chapter-artlink:hover .chapter-row-line, .chapter-artlink:focus-visible .chapter-row-line { transform: scaleX(1); }
+.art-home:has(.chapter-world-engineering:is(:hover,:focus-visible)) .hero-world-engineering,
+.art-home:has(.chapter-world-impact:is(:hover,:focus-visible)) .hero-world-impact,
+.art-home:has(.chapter-world-about:is(:hover,:focus-visible)) .hero-world-about { opacity: 1; }
+.chapter-artlink:is(:hover,:focus-visible) .orbit-turn { animation: orbit-turn 32s linear infinite; transform-origin: 160px 70px; }
+@keyframes orbit-turn { to { transform: rotate(360deg); } }
+.art-footer { border-top: 0; }
+.footer-composition { border-top: 1px solid var(--rule); padding-block: 32px; display: grid; grid-template-columns: minmax(0,1fr) auto auto; align-items: center; gap: 24px 28px; }
+.footer-introduction { grid-column: 1 / -1; max-width: 65ch; }
+.footer-introduction p { margin-top: 12px; color: var(--secondary); font-size: 15px; line-height: 1.7; }
+.footer-composition h2 { font: 18px/1.5 ui-monospace, Consolas, monospace; font-weight: 400; white-space: nowrap; }
+.footer-composition .contact-address { margin: 0; font-size: 13px; }
+.footer-composition .copy-email { align-items: flex-start; position: relative; }
+.footer-composition .copy-email .button { margin: 0; min-height: 44px; white-space: nowrap; font-size: 12px; }
+.footer-composition .copy-status { position: absolute; top: calc(100% + 4px); white-space: nowrap; }
+.footer-composition nav { margin-left: auto; display: flex; gap: 24px; }
+.footer-composition nav a { min-height: 44px; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--secondary); }
+.footer-composition nav a:hover { color: var(--gold); }
+.footer-composition nav .arrow { width: 16px; height: 16px; }
+.chapter-hero h1 { font-size: clamp(48px,6.8vw,88px); }
+.chapter-subtitle { font-family: Georgia, "Times New Roman", serif; font-weight: 400; }
+.engineering-chapter .chapter-hero-inner { padding-block: 32px 56px; }
+.engineering-chapter .section-block { padding-block: 56px; }
+.engineering-chapter .section-heading { margin-bottom: 24px; }
+.engineering-chapter .project-row { padding-block: 24px; gap: 48px; }
+.engineering-chapter .project-overview h3 { font: 400 30px/1.2 Georgia,serif; }
+.engineering-chapter .project-overview > p { font-size: 15px; margin-top: 8px; }
+.engineering-chapter .project-overview .tag-list { margin-top: 8px; }
+.engineering-chapter .project-overview .text-link { margin-top: 4px; }
+.engineering-chapter .experience-row summary { padding-block: 20px; }
+.engineering-chapter .experience-name { font-size: 22px; }
+.case-section { padding-block: 56px; }
+.architecture-section { padding-block: 64px; }
+.case-heading .art-motif { color: var(--gold); opacity: .7; width: 180px; margin-top: 20px; }
+@media (min-width:640px) { .learning-flow .arrow { top: calc(50% - 12px); } }
+.chapter-hero h1 em { letter-spacing: -.05em; }
+.chapter-hero-motif { position: absolute; width: 320px; right: 0; bottom: 28px; color: var(--gold); opacity: .55; }
+.chapter-hero-inner > div:first-child { position: relative; z-index: 1; }
+.chapter-hero-split .chapter-hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.chapter-hero-split .chapter-subtitle { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 38px; }
+.chapter-hero-split h1 { font-size: 88px; }
+.personal-waypoints { list-style: none; padding: 0 0 0 24px; margin: 0; border-left: 1px solid var(--gold); }
+.personal-waypoints li { display: grid; grid-template-columns: 48px 1fr; gap: 20px; padding-block: 24px; position: relative; }
+.personal-waypoints li::before { content: ""; position: absolute; left: -29px; top: 34px; width: 9px; height: 9px; border: 1px solid var(--gold); border-radius: 50%; background: var(--background); }
+.personal-waypoints h2 { font: 400 30px/1.2 Georgia,serif; margin-bottom: 16px; }
+.personal-waypoints p { color: var(--secondary); font: 13px/1.8 ui-monospace,Consolas,monospace; }
+.personal-waypoints .chapter-number { padding-top: 6px; }
+.ksong-section { display: grid; grid-template-columns: 1fr 1.4fr; gap: 64px; align-items: center; padding-block: 80px; border-top: 1px solid var(--rule); }
+.ksong-section h2 { font-size: 72px; letter-spacing: -.05em; line-height: 1; margin-bottom: 24px; }
+.ksong-section h2 em { font-family: Georgia,serif; font-weight: 400; color: var(--gold); }
+.ksong-section p { color: var(--secondary); font-size: 16px; line-height: 1.8; max-width: 42ch; }
+.bilingual-art { position: relative; color: var(--gold); }
+.bilingual-art .art-motif { opacity: .8; }
+.bilingual-art > span { display: flex; justify-content: space-around; font: 56px/1 Georgia,serif; color: var(--foreground); }
+.architecture-node, .architecture-compact .architecture-node { background: transparent; border: 0; min-height: 0; padding: 12px 8px; text-align: center; align-items: center; gap: 12px; }
+.architecture-number { border: 1px solid var(--gold); border-radius: 50%; width: 48px; height: 48px; display: grid; place-items: center; font-size: 12px; }
+.architecture-node strong, .architecture-compact .architecture-node strong { font: 400 19px/1.3 Georgia,serif; }
+.architecture-node p { font-size: 12px; }
+.architecture-step > .arrow { top: 24px; }
+.architecture-step:not(:last-child)::after { content: ""; position: absolute; top: 35px; left: calc(50% + 16px); right: 24px; border-bottom: 1px dashed var(--gold); opacity: .45; }
+.chapter-hero .signal-lines { opacity: .45; }
+.section-heading h2, .case-section h2, .architecture-section h2, .additional-work h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 34px; }
+.project-overview h3 { font-size: 36px; }
+.architecture-node { border-color: #55555f; }
+.architecture-number { color: var(--gold); }
+.impact-heading h2, .timeline-row h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 400; font-size: 44px; }
+.impact-body p { font-size: 16px; }
+.learning-node { border-color: var(--gold); }
+.initiative-composition { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 48px; padding-block: 72px 96px; }
+.initiative { height: 100%; border-right: 1px solid var(--rule); padding-right: 36px; }
+.initiative-composition > :last-child .initiative { border-right: 0; padding-right: 0; }
+.initiative-art { position: relative; height: 144px; margin-bottom: 32px; color: var(--gold); }
+.initiative-art .art-motif { position: absolute; width: 230px; right: -8px; top: 20px; }
+.initiative h2 { font: 400 34px/1.2 Georgia,serif; letter-spacing: -.025em; margin-bottom: 20px; }
+.initiative .mono-label { color: var(--gold); font-size: 11px; margin-block: 0 24px; }
+.initiative-copy { font-size: 15px; line-height: 1.85; color: var(--secondary); margin-bottom: 20px; }
+.timeline-music h2 { font-size: 32px; }
+.personal-timeline::before { background: var(--gold); opacity: .35; }
+.case-hero h1 { font-size: clamp(64px,8vw,112px); }
+.case-hero .chapter-subtitle { font-family: Georgia, "Times New Roman", serif; font-size: 36px; font-weight: 400; max-width: 760px; }
+.case-hero-motif { position: absolute; width: 380px; right: max(56px,calc((100% - 1280px)/2)); top: 180px; color: var(--gold); opacity: .8; }
+@media (max-width:1199px) { .art-home .home-hero-grid { grid-template-columns: minmax(0,1fr) 300px; gap: 40px; } .art-home .home-intro h1 { font-size: 9.5vw; } .art-home .home-context { font-size: 12px; } .chapter-artlink { padding-inline: 24px; } .chapter-illustration .art-motif { width: 160px; } .footer-composition { gap: 20px; } }
+@media (max-width:1023px) {
+  .initiative-composition { grid-template-columns: 1fr; padding-block: 56px 72px; gap: 48px; }
+  .initiative { border-right: 0; border-bottom: 1px solid var(--rule); padding: 0 0 48px; max-width: 65ch; }
+  .initiative-art { max-width: 400px; }
+  .case-hero-motif { width: 260px; top: 190px; right: 32px; opacity: .25; }
+  .chapter-hero-split .chapter-hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .chapter-hero-split h1 { font-size: 7.5vw; }
+  .ksong-section { grid-template-columns: 1fr; gap: 40px; padding-block: 64px; }
+  .bilingual-art { max-width: 700px; }
+  .art-home .home-hero-grid { grid-template-columns: minmax(0,1fr) 220px; gap: 32px; padding-block: 56px 132px; }
+  .art-home .home-intro h1 { font-size: 9.6vw; }
+  .art-home .home-statement { font-size: 30px; }
+  .art-home .home-context { font-size: 11px; }
+  .art-home .hero-actions { gap: 12px; }
+  .art-home .hero-actions .button { font-size: 12px; padding-inline: 12px; }
+  .hero-world { width: 150px; }
+  .hero-world-engineering { width: 180px; }
+  .hero-world-impact { left: 38%; }
+  .hero-world-about { width: 170px; }
+  .hero-world span { font-size: 10px; }
+  .chapter-composition { grid-template-columns: 1fr; padding-block: 0; }
+  .chapter-artlink { min-height: 200px; display: grid; grid-template-columns: 150px 1fr 44px; gap: 12px 24px; padding: 32px 0 !important; border-right: 0 !important; border-bottom: 1px solid var(--rule); align-items: center; }
+  .chapter-illustration { grid-row: 1 / 3; height: 124px; margin: 0; }
+  .chapter-outline { font-size: 116px; top: 0; }
+  .chapter-illustration .art-motif { width: 150px; top: 24px; right: -12px; }
+  .chapter-artlink h2 { font-size: 30px; margin: 0; align-self: end; }
+  .chapter-artlink p { grid-column: 2; font-size: 12px; margin: 0; align-self: start; }
+  .chapter-circle { grid-column: 3; grid-row: 1 / 3; margin: 0; width: 44px; height: 44px; }
+  .footer-composition { grid-template-columns: minmax(0,1fr) auto; padding-block: 28px 40px; gap: 16px 24px; }
+  .footer-composition .contact-address { grid-column: 1 / -1; }
+  .footer-composition nav { margin-left: 0; }
+  .chapter-hero h1 { font-size: 7.5vw; }
+  .impact-heading h2, .timeline-row h2 { font-size: 38px; }
+  .case-hero h1 { font-size: 72px; }
+}
+@media (max-width:639px) {
+  .engineering-chapter .project-row { gap: 24px; padding-block: 32px; }
+  .case-heading .art-motif { display: none; }
+  .initiative-art { height: 116px; }
+  .initiative-art .chapter-outline { font-size: 100px; top: 0; }
+  .initiative-art .art-motif { width: 210px; right: 0; top: 4px; }
+  .case-hero-motif { width: 180px; right: 20px; top: 140px; opacity: .2; }
+  .chapter-hero-motif { width: 180px; opacity: .3; bottom: 8px; }
+  .chapter-hero-split h1 { font-size: clamp(40px,11vw,56px); }
+  .chapter-hero-split .chapter-subtitle { font-size: 26px; }
+  .personal-waypoints { padding-left: 20px; }
+  .personal-waypoints li { grid-template-columns: 28px 1fr; gap: 16px; }
+  .personal-waypoints li::before { left: -25px; }
+  .personal-waypoints h2 { font-size: 26px; }
+  .personal-waypoints p { font-size: 12px; }
+  .ksong-section h2 { font-size: 56px; }
+  .bilingual-art > span { font-size: 40px; }
+  .architecture-node, .architecture-compact .architecture-node { display: grid; grid-template-columns: 48px 1fr; text-align: left; padding: 12px 0; gap: 8px 16px; }
+  .architecture-node strong, .architecture-compact .architecture-node strong { font-size: 22px; }
+  .architecture-number { grid-row: 1 / 3; }
+  .architecture-step:not(:last-child)::after { display: none; }
+  .architecture-step > .arrow { bottom: 2px; top: auto; }
+  .wordmark { font-size: 16px; }
+  .art-home .home-hero-grid { grid-template-columns: minmax(0,1fr) 110px; gap: 28px 20px; padding-block: 40px 96px; }
+  .art-home .home-intro h1 { white-space: normal; font-size: 23vw; max-width: none; line-height: .95; margin: 0; }
+  .art-home .home-intro h1 em { display: block; margin-top: 4px; font-size: 1.22em; }
+  .art-home .home-statement { font-size: 29px; line-height: 1.15; }
+  .art-home .home-context { margin: 0; font-size: 12px; line-height: 1.8; }
+  .art-home .home-portrait { width: 110px; margin-top: 4px; transform: rotate(3deg); }
+  .art-home .portrait { aspect-ratio: 1 / 1.15; }
+  .art-home .hero-actions { margin: 0; }
+  .art-home .hero-actions .button { font-size: 14px; padding-inline: 16px; }
+  .journey-thread { opacity: .3; }
+  .hero-world-engineering { width: 90px; bottom: 4px; }
+  .hero-world-impact { width: 100px; bottom: 0; left: 36%; }
+  .hero-world-about { width: 100px; bottom: 4px; }
+  .hero-world span { display: none; }
+  .chapter-artlink { grid-template-columns: 66px minmax(0,1fr) 32px; gap: 12px; min-height: 168px; padding-block: 28px !important; }
+  .chapter-illustration { height: 98px; }
+  .chapter-outline { font-size: 68px; top: 2px; left: -3px; }
+  .chapter-illustration .art-motif { width: 76px; top: 38px; right: -4px; }
+  .chapter-artlink h2 { font-size: 24px; line-height: 1.15; }
+  .chapter-artlink p { font-size: 12px; line-height: 1.7; }
+  .chapter-circle { width: 32px; height: 44px; border: 0; }
+  .footer-composition { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding-block: 28px 48px; }
+  .footer-composition h2 { grid-column: 1 / -1; font-size: 14px; }
+  .footer-composition .contact-address { grid-column: 1 / -1; font-size: 12px; }
+  .footer-composition .copy-status { font-size: 10px; white-space: normal; min-width: 140px; }
+  .footer-composition nav { gap: 16px; }
+  .footer-composition nav a { font-size: 11px; }
+  .footer-composition nav .arrow { width: 12px; }
+  .chapter-hero h1, .case-hero h1 { font-size: clamp(40px,11vw,56px); }
+  .chapter-subtitle { font-size: 23px; }
+  .case-hero .chapter-subtitle { font-size: 26px; }
+  .section-heading h2, .case-section h2, .architecture-section h2, .additional-work h2 { font-size: 30px; }
+  .impact-heading h2, .timeline-row h2 { font-size: 34px; }
+  .timeline-music h2 { font-size: 27px; }
+}
+@media (prefers-reduced-motion: reduce) { .orbit-turn { animation: none !important; } .chapter-illustration .art-motif { transform: none !important; } }
+
+/* Make the useful context easy to scan beside the expressive hero. */
+.art-home .home-context { display: grid; gap: 10px; margin-top: 28px; color: var(--foreground); font-size: clamp(14px,1.3vw,17px); line-height: 1.7; }
+.art-home .home-context p + p { margin-top: 0; }
+@media (max-width:639px) {
+  .art-home .home-context { margin-top: 0; gap: 12px; }
+}

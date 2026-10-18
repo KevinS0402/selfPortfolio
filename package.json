@@ -3,26 +3,43 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.mjs",
     "build": "next build",
-    "build:hosting": "next build",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:contact": "node --test functions/contact-handler.test.mjs",
+    "media:build": "node scripts/prepare-media.mjs",
+    "prebuild": "node scripts/prepare-media.mjs",
+    "check:seo": "node scripts/check-seo.mjs --next",
+    "check:crawl": "node scripts/check-crawl.mjs",
+    "start": "next start"
   },
   "dependencies": {
     "framer-motion": "^12.0.0",
-    "next": "^15.0.0",
+    "next": "15.5.28",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "three": "^0.186.1",
+    "@next/env": "15.5.28",
+    "sharp": "0.35.5"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.186.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.0.0",
-    "eslint-config-next": "^15.0.0",
-    "postcss": "^8.4.49",
+    "eslint-config-next": "15.5.28",
+    "postcss": "8.5.30",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "overrides": {
+    "postcss": "8.5.30",
+    "nanoid": "3.3.20",
+    "source-map-js": "1.2.2"
   }
 }

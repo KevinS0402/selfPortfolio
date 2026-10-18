@@ -161,9 +161,9 @@ export const projects: Project[] = [
   },
   {
     title: "Ivy Journey Web Platform",
-    domain: "Web Development",
-    role: "Technology lead and web developer",
-    stack: ["Web Development", "SEO", "Analytics", "Responsive Design"],
+    domain: "Web & AI Product",
+    role: "Technology Lead",
+    stack: ["Full-stack development", "AI chatbot", "Vercel", "Resend", "SEO / LLM discoverability"],
     links: [
       {
         label: "Website",
@@ -171,14 +171,14 @@ export const projects: Project[] = [
       },
     ],
     impact: {
-      problem: "Modernize a client-facing education company website and online services for discoverability and conversion.",
-      audience: "Prospective Ivy Journey clients evaluating services online.",
-      outcome: "Produced 100+ daily views, a 150%+ client increase, 20% higher discoverability, and 90% lower load time.",
+      problem: "Help prospective students and families understand admissions services through a trustworthy, approachable digital experience.",
+      audience: "Prospective students and families evaluating Ivy Journey’s admissions consulting services.",
+      outcome: "Contributed to 150% client growth and 20% higher customer conversion. Reduced page-load time by 90%.",
     },
     technical: {
-      architecture: "Built responsive web services with analytics instrumentation, SEO improvements, and performance optimization.",
-      decisions: "Prioritized fast load times, mobile usability, and conversion-oriented information architecture.",
-      depth: "Owned web development and technical leadership across site functionality, optimization, and online service delivery.",
+      architecture: "Built a full-stack website with a company-knowledge-grounded AI chatbot, response guardrails, and Resend email workflows; migrated hosting from Wix to Vercel.",
+      decisions: "Designed around customer trust and clear service discovery, improved search engine and LLM discoverability, and kept chatbot usage within free-tier limits.",
+      depth: "Led full-stack development, branding and website design, performance optimization, and infrastructure modernization, including a hosting migration that reduced recurring costs.",
     },
   },
 ];

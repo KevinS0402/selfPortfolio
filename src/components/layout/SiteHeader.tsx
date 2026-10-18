@@ -1,35 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { navItems } from "@/lib/constants";
-import { AnimatedUnderline } from "@/components/ui/AnimatedUnderline";
+import Link from "next/link";
+import Image from "next/image";
+import { media } from "@/data/media";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { chapters } from "@/data/journey";
+import { Arrow } from "@/components/ui/Arrow";
 
 export function SiteHeader() {
-  return (
-    <motion.header
-      initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 180, damping: 24, mass: 0.8 }}
-      className="sticky top-0 z-50 border-b border-line/80 bg-soft/80 backdrop-blur-xl"
-    >
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-5 px-5 py-4 md:px-8">
-        <a href="#top" className="text-base font-semibold leading-none tracking-[-0.01em] text-charcoal">
-          Kevin Song
-        </a>
-        <nav className="hidden items-center gap-3 md:flex" aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <AnimatedUnderline key={item.href} href={item.href}>
-              {item.label}
-            </AnimatedUnderline>
-          ))}
-        </nav>
-        <a
-          href="#contact"
-          className="rounded-full bg-charcoal px-4 py-2 text-sm font-semibold text-paper transition hover:bg-graphite focus-visible:shadow-[var(--focus-ring)]"
-        >
-          Contact
-        </a>
-      </div>
-    </motion.header>
-  );
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    const escape = (event: KeyboardEvent) => { if (event.key === "Escape") { setOpen(false); toggle.current?.focus(); } };
+    const resize = () => { if (window.innerWidth >= 1024) setOpen(false); };
+    window.addEventListener("keydown", escape);
+    window.addEventListener("resize", resize);
+    return () => { window.removeEventListener("keydown", escape); window.removeEventListener("resize", resize); };
+  }, [open]);
+  const active = (href: string) => pathname === href || pathname === href.slice(0, -1) || (href === "/engineering/" && pathname.startsWith("/work/"));
+  return <header className="site-header"><div className="container header-inner"><Link href="/" className="wordmark" onClick={() => setOpen(false)}><Image className="site-monogram" src={media.monogram} alt="" width={42} height={42} priority /><span className="wordmark-name">Kevin <span className="wordmark-song">Song</span></span></Link><nav className="desktop-nav" aria-label="Primary navigation">{chapters.map((chapter) => <Link key={chapter.href} href={chapter.href} aria-current={active(chapter.href) ? "page" : undefined}>{chapter.label}</Link>)}</nav><div className="header-actions"><a href="/kevin-song-resume-2026-cs-pm.pdf" className="resume-link" target="_blank" rel="noreferrer">Resume<Arrow direction="external" /><span className="sr-only"> (PDF, opens in a new tab)</span></a><button ref={toggle} type="button" className="menu-toggle" aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen(!open)}>{open ? "Close" : "Menu"}<span className={open ? "menu-mark is-open" : "menu-mark"} aria-hidden="true"><i /><i /></span></button></div></div><nav id="mobile-navigation" className="mobile-nav" aria-label="Mobile navigation" hidden={!open}>{chapters.map((chapter) => <Link key={chapter.href} href={chapter.href} aria-current={active(chapter.href) ? "page" : undefined} onClick={() => setOpen(false)}><span>{chapter.number}</span>{chapter.label}<Arrow /></Link>)}<Link href="/about/#contact-form" onClick={() => setOpen(false)}>Get in touch<Arrow /></Link></nav><noscript><nav className="no-script-nav" aria-label="Chapters">{chapters.map(chapter => <a key={chapter.href} href={chapter.href}>{chapter.label}</a>)}</nav></noscript></header>;
 }

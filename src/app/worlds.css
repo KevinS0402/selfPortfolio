@@ -1,0 +1,48 @@
+/* Blender models reveal after their first rendered frame; loading never shows old artwork. */
+.world-model { position: absolute; inset: 0; z-index: 2; }
+.world-model canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity .5s; }
+.world-model[data-scene-state="ready"] canvas { opacity: 1; }
+.world-model[data-scene-state="fallback"] canvas { display: none; }
+.world-model-overview { bottom: 56px; }
+.world-model-overview canvas { touch-action: pan-y; }
+.world-space-controls { pointer-events: none; z-index: 3; }
+.world-space { pointer-events: none; }
+.world-space-label { pointer-events: auto; padding-inline: 8px; }
+.world-space-label:focus-visible { outline-offset: 4px; }
+.world-space-label:hover, .world-space-label:focus-visible { color: var(--gold); border-color: var(--gold); }
+@media (min-width:640px) { .world-stage { height: clamp(410px,39vw,560px); } }
+.chapter-scenery:has(.world-model) { width: min(100%,460px); height: 470px; }
+.chapter-hero-world .chapter-hero-inner:has(.world-model) { grid-template-columns: minmax(0,1fr) 460px; }
+.world-model-single canvas { height: calc(100% - 62px); touch-action: none; cursor: grab; }
+.world-model-single canvas:active { cursor: grabbing; }
+.world-model-tools { position: absolute; bottom: 0; left: 0; right: 0; }
+.world-model-tools > p { font: 10px/1.6 ui-monospace,Consolas,monospace; color: var(--secondary); text-align: center; }
+.world-rotation-controls { display: flex; justify-content: center; gap: 10px; }
+.world-rotation-controls button { min-width: 44px; min-height: 44px; font-size: 11px; border: 0; }
+.world-rotation-controls .arrow { width: 16px; height: 16px; }
+.world-model-tools button:hover { color: var(--gold); }
+.world-model-tools button:disabled { opacity: .4; }
+.chapter-hero-split .chapter-scenery { margin: 24px auto 0; }
+@media (max-width:1023px) {
+  .chapter-scenery:has(.world-model) { height: 386px; }
+  .chapter-hero-world .chapter-hero-inner:has(.world-model) { grid-template-columns: minmax(0,1fr) 300px; }
+}
+@media (max-width:639px) {
+  .world-model-overview { pointer-events: none; }
+  .world-model-overview canvas { pointer-events: none; }
+  .chapter-scenery:has(.world-model) { width: 100%; max-width: 360px; height: 416px; margin-inline: auto; }
+  .chapter-hero-world .chapter-hero-inner:has(.world-model) { display: block; }
+  .world-space-label { padding-inline: 0; }
+}
+@media (prefers-reduced-motion:reduce) { .world-model canvas { transition: none; } }
+
+.world-model-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; pointer-events: none; }
+.world-model-single .world-model-placeholder { bottom: 62px; }
+.world-model-placeholder p { color: var(--secondary); font: 11px/1.6 ui-monospace,Consolas,monospace; letter-spacing: .05em; }
+.world-loading-line { width: 100px; height: 1px; background: var(--rule); overflow: hidden; }
+.world-loading-line::after { content: ""; display: block; width: 40%; height: 100%; background: var(--gold); animation: scene-loading 1.6s ease-in-out infinite; }
+@keyframes scene-loading { from { transform: translateX(-100%); } to { transform: translateX(350%); } }
+@media (prefers-reduced-motion:reduce) { .world-loading-line::after { animation: none; margin-inline: auto; } }
+
+/* Room, cloud, and spotlight share one responsive 3D viewport. */
+@media (max-width:639px) { .world-mobile-scene { padding-top: calc(104% + 32px); } }

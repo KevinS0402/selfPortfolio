@@ -1,0 +1,177 @@
+/* Living contours and liquid lenses extend the existing black / white / gold system. */
+.living-filter-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
+.contour-response { transform: translate(var(--flow-x,0px),var(--flow-y,0px)); transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
+.contour-band { transform-box: view-box; transform-origin: 600px 320px; animation: contour-tide 16s ease-in-out infinite alternate; }
+.contour-band-1 { animation-delay: -7s; animation-direction: alternate-reverse; }
+.contour-band-2 { animation-delay: -11s; animation-duration: 21s; }
+.contour-ascii { opacity: .65; letter-spacing: 0; font-family: ui-monospace,Consolas,monospace; }
+.contour-ascii text { animation: none; text-anchor: middle; }
+.contour-travelers { fill: var(--gold); opacity: .65; }
+.contour-travelers circle { offset-path: path("M40 410 C240 360 320 200 540 300 S920 540 1170 310"); animation: contour-travel 20s linear infinite; animation-delay: calc(var(--particle-index) * -6.6s); }
+.contour-field * { animation-play-state: paused; }
+.contour-field:not([data-ambient-active="true"]) * { animation-play-state: paused; }
+.contour-field[data-ambient-active="true"] * { animation-play-state: running; }
+@keyframes contour-tide { from { transform: translate(-8px,5px) rotate(-.7deg); } to { transform: translate(10px,-9px) rotate(.8deg); } }
+@keyframes ascii-current { from { opacity: .25; translate: -4px 0; } to { opacity: .9; translate: 5px -2px; } }
+@keyframes contour-travel { from { offset-distance: 0%; opacity: 0; } 8%,90% { opacity: .8; } to { offset-distance: 100%; opacity: 0; } }
+
+/* A rounded lens, not a noise field: clear center, refracting rim, directional light. */
+.liquid-glass { position: relative; isolation: isolate; border: 1px solid #ffffff26; border-radius: 24px; background: radial-gradient(ellipse at var(--surface-x,22%) var(--surface-y,0%),#ffffff0c,transparent 65%),#17171b76; -webkit-backdrop-filter: blur(8px) var(--glass-filter,blur(0px)) saturate(125%); backdrop-filter: blur(8px) var(--glass-filter,blur(0px)) saturate(125%); box-shadow: 0 12px 32px #0003,0 2px 5px #0002,inset 0 1px 1px #ffffff16,inset 0 -1px 1px #0003; transition: border-color .3s,box-shadow .3s; }
+.liquid-glass::before,.liquid-glass::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite: exclude; }
+.liquid-glass::before { padding: 5px; background: radial-gradient(ellipse at var(--surface-x,22%) var(--surface-y,0%),#ffffff16,transparent 65%); opacity: .45; }
+.liquid-glass::after { padding: 1px; background: conic-gradient(from var(--glass-angle,-35deg) at 50% 50%,#ffffff90,transparent 16%,#ffffff08 38%,#ffffff40 50%,transparent 65%,#ffffff08 85%,#ffffff90); opacity: .45; transition: opacity .3s; }
+.liquid-glass:is([data-pointer-active="true"],:focus-within)::after { opacity: .9; }
+.liquid-glass:is([data-pointer-active="true"],:focus-within) { border-color: #ffffff42; box-shadow: 0 16px 40px #0004,0 2px 5px #0002,inset 0 1px 1px #ffffff22; }
+.architecture-detail.liquid-glass { padding: 24px; margin-top: 24px; }
+
+/* The introduction scrolls away; the larger worlds have their own comfortable stage. */
+.world-sequence > .journey-world-heading { padding-block: 64px 12px; }
+.world-sequence .sequence-pin { overflow: clip; }
+.world-sequence-inner { padding-block: 24px 64px; }
+.journey-landmarks { height: 470px; margin-block: 8px 32px; }
+.journey-landmarks .world-model-overview { bottom: 92px; }
+.journey-world-links { gap: clamp(24px,4vw,64px); }
+.journey-world-links > div { display: grid; grid-template-columns: 44px minmax(0,1fr); gap: 8px; justify-content: stretch; min-width: 0; padding-inline: 8px; }
+.journey-world-links button { justify-content: center; }
+.journey-world-links a { display: flex; justify-content: space-between; min-width: 0; gap: 12px; font-size: clamp(15px,1.4vw,19px); padding-block: 8px; }
+.journey-world-links a > span { min-width: 0; }
+.journey-world-links .arrow { flex: 0 0 17px; }
+.journey-world-links small { font-size: 10px; }
+.journey-world-detail { gap: clamp(32px,6vw,80px); min-height: 190px; }
+.world-index { padding: 20px 26px; }
+.world-sequence .sequence-track { margin-top: 28px; }
+.exhibit-nodes button { border-radius: 16px; transition: background .35s,border-color .35s; }
+.exhibit-nodes button:hover,.exhibit-nodes button:focus-visible { background: #d6b45e08; }
+.exhibit-node-art { translate: calc(var(--flow-x,0px) * .5) calc(var(--flow-y,0px) * .5); transition: translate .5s ease-out,opacity .4s,transform .6s var(--journey-ease); }
+.exhibit-practice .exhibit-nodes { gap: 28px; }
+.music-score svg path:not(:first-child) { transform-box: fill-box; transform-origin: center; animation: score-breath 3.5s ease-in-out infinite alternate; animation-play-state: paused; }
+.music-score svg path:nth-child(3n) { animation-delay: -1.8s; animation-duration: 4.2s; }
+.music-score svg path:nth-child(3n + 1) { animation-delay: -.7s; }
+.music-score[data-ambient-active="true"] svg path { animation-play-state: running; }
+@keyframes score-breath { from { scale: 1 .76; opacity: .6; } to { scale: 1 1.08; opacity: 1; } }
+
+@media (min-width:640px) and (min-height:650px) and (prefers-reduced-motion:no-preference) {
+  .world-sequence[data-enhanced="true"] .journey-landmarks { height: clamp(260px,calc(100svh - 490px),520px); }
+  .world-sequence[data-enhanced="true"][data-pin-fits="true"] { min-height: 235svh; }
+  .world-sequence[data-enhanced="true"][data-pin-fits="true"] .journey-landmarks { flex: 1; min-height: 260px; }
+}
+@media (max-width:1023px) {
+  .world-sequence > .journey-world-heading { padding-block: 56px 12px; }
+  .journey-landmarks { height: 450px; }
+  .journey-world-links { gap: 20px; max-width: 100%; }
+  .journey-world-links > div { padding-inline: 0; gap: 4px; }
+  .journey-world-detail { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width:767px) {
+  .journey-world-links > div { grid-template-columns: 1fr; gap: 0; }
+  .journey-world-links button { justify-content: flex-start; }
+  .journey-world-links a { font-size: 16px; }
+  .journey-landmarks .world-model-overview { bottom: 118px; }
+  .journey-world-detail { grid-template-columns: 1fr; gap: 28px; }
+}
+@media (max-width:639px) {
+  .world-sequence > .journey-world-heading { padding-block: 48px 0; }
+  .world-sequence-inner { padding-block: 16px 64px; }
+  .journey-landmarks { height: 440px; margin-block: 0 32px; }
+  .journey-landmarks .world-model-overview { bottom: 112px; }
+  .journey-landmarks .world-mobile-scroller { bottom: 118px; }
+  .journey-world-links { gap: 20px; }
+  .journey-world-links > div { display: flex; flex-direction: column-reverse; gap: 0; }
+  .journey-world-links button { min-height: 44px; justify-content: center; }
+  .journey-world-links a { width: 100%; gap: 4px; font-size: clamp(12px,3.2vw,16px); }
+  .journey-world-links small { font-size: 8px; }
+  .journey-world-links .arrow { width: 12px; height: 12px; flex-basis: 12px; }
+  .world-index { padding: 20px 24px; }
+  .exhibit-practice .exhibit-nodes { gap: 16px; }
+  .architecture-detail.liquid-glass { padding: 20px; }
+  .liquid-glass::before { backdrop-filter: none; padding: 2px; }
+}
+@media (max-width:359px) { .journey-world-links .arrow { display: none; } }
+@media (prefers-reduced-motion:reduce) {
+  .contour-response,.contour-ascii,.exhibit-node-art { transform: none !important; translate: none !important; }
+  .contour-travelers { display: none; }
+  .liquid-glass { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .liquid-glass::before { backdrop-filter: none; }
+  .liquid-glass::after { animation: none; opacity: .3; }
+  .music-score svg path { scale: none; }
+}
+@media (forced-colors:active) {
+  .liquid-glass { background: Canvas; border-color: CanvasText; backdrop-filter: none; box-shadow: none; }
+  .liquid-glass::before,.liquid-glass::after,.contour-travelers { display: none; }
+}
+@supports not (backdrop-filter:blur(1px)) { .liquid-glass { background: #151519; } .liquid-glass::before { backdrop-filter: none; } }
+
+/* Dither density flows continuously; pointer waves scramble individual glyphs. */
+.contour-dither-cloud { opacity: .6; }
+.dither-blob { animation: dither-drift 19s ease-in-out infinite alternate; }
+.dither-blob-two { animation-duration: 25s; animation-delay: -9s; animation-direction: alternate-reverse; }
+.dither-ripples { fill: currentColor; }
+.ascii-ripple[data-rippling="true"] .contour-ascii { opacity: 1; fill: #fae6af; }
+@keyframes dither-drift { from { transform: translate(-130px,40px) scale(.85); } to { transform: translate(170px,-45px) scale(1.15); } }
+@media (prefers-reduced-motion:reduce),(forced-colors:active) { .dither-ripples { display: none; } }
+/* Readable layout boxes determine pin eligibility; decorations may overflow freely. */
+.exhibit-wires[data-mask-ready="false"] { visibility: hidden; }
+.exhibit-wires > g > path:first-child { opacity: .2; }
+.linkedin-post { gap: clamp(24px,4vw,64px); align-items: start; }
+.post-editorial.liquid-glass { padding: clamp(20px,2.5vw,32px); }
+.linkedin-frame.liquid-glass { padding: 12px; border-radius: 26px; }
+.linkedin-frame.liquid-glass iframe { border-radius: 15px; }
+.linkedin-frame.liquid-glass .embed-fallback { padding: 4px 12px; margin-block: 8px 0; }
+.linkedin-section { position: relative; isolation: isolate; }
+.linkedin-atmosphere { z-index: -1; opacity: .26; mask-image: linear-gradient(transparent,#000 25%,#000 75%,transparent); }
+.engineering-chapter .project-row.project-secondary { padding-block: 36px; gap: 40px; }
+.engineering-chapter .project-secondary .project-overview h3 { font-size: 28px; }
+.project-secondary .project-purpose,.project-secondary-note { font-size: 15px; line-height: 1.8; color: var(--secondary); }
+.project-secondary .project-actions { display: flex; flex-wrap: wrap; gap: 8px 28px; }
+@media (min-width:640px) and (min-height:650px) and (prefers-reduced-motion:no-preference) {
+  .world-sequence-inner { padding-block: 16px 32px; }
+  .world-sequence .journey-landmarks { height: clamp(260px,calc(100svh - 490px),520px); margin-block: 8px 16px; }
+  .world-sequence[data-enhanced="true"][data-pin-fits="true"] .journey-landmarks { min-height: 260px; }
+  .journey-world-detail { grid-template-columns: minmax(0,1fr) minmax(235px,.75fr); gap: 24px; min-height: 180px; }
+  .world-index { padding: 16px 20px; }
+  .world-description h3 { font-size: clamp(24px,2.8vw,38px); }
+  .world-sequence .sequence-track { margin-top: 20px; }
+  .exhibit-sequence .sequence-pin,.music-sequence .sequence-pin { padding-block: 28px 24px; }
+  .exhibit-heading { flex-direction: row; gap: 28px; }
+  .exhibit-heading h2 { font-size: clamp(34px,4vw,58px); }
+  .exhibit-heading > p { font-size: 13px; max-width: 32ch; }
+  .exhibit-canvas { padding-block: 24px 16px; }
+  .exhibit-name { margin-bottom: 16px; }
+  .exhibit-node-art,.exhibit-community .exhibit-node-art { width: clamp(64px,8vw,104px); height: clamp(64px,8vw,104px); }
+  .exhibit-nodes strong { font-size: clamp(13px,1.3vw,16px); }
+  .exhibit-explanations { margin-top: 20px; }
+  .exhibit-explanation { padding: 16px 24px; }
+  .exhibit-explanation > p { line-height: 1.7; }
+  .sequence-bottom { margin-top: 0; }
+  .scroll-instruction { display: inline; }
+}
+@media (min-width:640px) and (max-height:859px) and (min-height:650px) {
+  .music-heading h2 { font-size: clamp(44px,5.5vw,64px); }
+  .music-heading p { margin-top: 16px; font-size: 14px; }
+  .music-score { height: 110px; margin-block: 16px; }
+  .music-score svg { height: 100px; }
+  .music-detail.ksong-section { padding-block: 8px 16px; }
+  .music-detail h3 { font-size: 34px; margin-bottom: 12px; }
+}
+@media (min-width:640px) and (max-width:900px) {
+  .journey-world-detail { gap: 20px; }
+  .world-description > p { font-size: 13px; }
+  .world-index a { min-height: 36px; }
+  .world-index .world-destination { min-height: 44px; }
+  .exhibit-heading > p { max-width: 24ch; }
+}
+
+/* Give every stop a reading interval. Native scrolling remains unrestricted. */
+@media (min-width:640px) and (min-height:650px) and (prefers-reduced-motion:no-preference) {
+  .scroll-sequence[data-enhanced="true"][data-pin-fits="true"] {
+    min-height: calc(100svh - 88px + var(--journey-lead,0px) + var(--journey-stages,1) * max(480px,70svh));
+  }
+}
+
+/* Align the About illustrations even when the short introductions wrap differently. */
+@media (min-width:768px) {
+  .about-story .personal-waypoints > li { display: flex; flex-direction: column; }
+  .about-story .personal-waypoints > li > .reveal { flex: 1; display: flex; flex-direction: column; }
+  .about-story .personal-waypoints > li > .chapter-number { margin-bottom: 4px; }
+  .about-story .personal-waypoints > li > .reveal > .tilt-visual { margin-top: auto; }
+}

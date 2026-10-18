@@ -1,10 +1,7 @@
+import { Reveal } from "@/components/ui/Reveal";
+import { Arrow } from "@/components/ui/Arrow";
+import { CopyEmail } from "@/components/ui/CopyEmail";
+
 export function SiteFooter() {
-  return (
-    <footer className="bg-charcoal text-paper">
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 border-t border-gold/40 px-5 py-8 text-sm font-medium md:flex-row md:items-center md:justify-between md:px-8">
-        <p>Kevin Song / Vanderbilt CS + Business / 2027</p>
-        <p className="text-gold-soft">DC / NYC / Nashville</p>
-      </div>
-    </footer>
-  );
+  return <footer id="contact" className="site-footer art-footer"><Reveal><div className="container footer-composition"><div className="footer-introduction"><h2><a href="/about/#contact-form">Something we should build together?<Arrow/></a></h2><p>An idea, an opportunity, or a music rec. Say hi.</p></div><a className="contact-address" href="mailto:kevin.song.1@vanderbilt.edu">kevin.song.1@vanderbilt.edu</a><CopyEmail /><nav aria-label="Social links"><a href="https://www.linkedin.com/in/kevinsong0402/" target="_blank" rel="noreferrer">LinkedIn<Arrow direction="external" /></a><a href="https://github.com/KevinS0402" target="_blank" rel="noreferrer">GitHub<Arrow direction="external" /></a></nav></div></Reveal></footer>;
 }

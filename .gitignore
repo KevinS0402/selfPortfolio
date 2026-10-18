@@ -4,3 +4,9 @@ out/
 .firebase/
 .env*
 *.log
+*.tsbuildinfo
+!.env.example
+
+out-preview/
+
+.vercel/

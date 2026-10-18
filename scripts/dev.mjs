@@ -1,0 +1,14 @@
+import { createServer } from "node:http";
+import { parseArgs } from "node:util";
+import next from "next";
+const { values } = parseArgs({ options: { hostname: { type: "string", default: "127.0.0.1" }, port: { type: "string", default: "3000" } } });
+const hostname = values.hostname, port = Number(values.port);
+if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error("Choose a valid development port.");
+const app = next({ dev: true, hostname, port });
+await app.prepare();
+const handler = app.getRequestHandler();
+const server = createServer((req, res) => handler(req, res));
+server.requestTimeout = 20_000;
+server.listen(port, hostname, () => console.log(`Portfolio + contact form ready at http://localhost:${port}`));
+server.on("error", error => { console.error(error.code === "EADDRINUSE" ? `Port ${port} is occupied. Try --port ${port + 1}.` : "Development server could not start."); process.exitCode = 1; });
+for (const signal of ["SIGINT", "SIGTERM"]) process.once(signal, () => { server.close(); void app.close().finally(() => process.exit(0)); });
