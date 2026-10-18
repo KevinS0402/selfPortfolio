@@ -85,6 +85,12 @@ export function WorldModel({ mode, space, onSelect, onPreview }: { mode: "overvi
         controls.update();
       }
       const loader = new GLTFLoader();
+      // Embedded GLB images use the existing img-src policy, rather than blob fetches.
+      loader.register(parser => {
+        parser.textureLoader = new THREE.TextureLoader(parser.options.manager)
+          .setCrossOrigin(parser.options.crossOrigin);
+        return { name: "PORTFOLIO_IMAGE_TEXTURES" };
+      });
       const rooms: Group[] = [];
       const materials: MeshStandardMaterial[] = [];
       const textures = new Set<import("three").Texture>();
