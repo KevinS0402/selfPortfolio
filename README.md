@@ -53,3 +53,10 @@ Public content lives in src/data/journey.ts; original source collections remain 
 Titles, canonical URLs and public identity are centralized in src/lib/site.ts and src/lib/structuredData.ts. About uses ProfilePage, chapters describe collections, and project cases describe CreativeWork. Sitemap and supplementary llms.txt link the public pages. Production is indexable; local development and Vercel previews use noindex. See docs/discoverability-plan.md for the search plan. Older static-export verification notes are historical; current production checks use the native Next.js build.
 
 Official references: [Vercel Next.js](https://vercel.com/docs/frameworks/full-stack/nextjs), [Google v2 verification](https://developers.google.com/recaptcha/docs/verify), [Resend domain setup](https://resend.com/docs/dashboard/domains/introduction).
+
+
+### Vercel Web Analytics
+
+`@vercel/analytics/next` is mounted once in the root layout on Vercel production deployments (`VERCEL=1`, `VERCEL_ENV=production`). Local builds and preview deployments do not send analytics. No new API key is required. Web Analytics must also be enabled for the portfolio project in the Vercel dashboard; Kevin confirmed it is enabled.
+
+Deploy the updated source before expecting traffic data. Check Vercel → portfolio project → Analytics after visiting the production domain. The existing same-origin CSP permits the Vercel-hosted script and collection endpoints without expanding the policy. This integration tracks aggregate page views, including client-side route navigation; it does not identify visitors, read LinkedIn sessions, or transmit contact-form contents. No paid analytics add-on or custom event collection was configured.

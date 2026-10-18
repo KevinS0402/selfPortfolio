@@ -36,3 +36,9 @@
 .contact-captcha-note:empty { display: none; }
 .contact-actions button:disabled:not([aria-busy="true"]) { cursor: not-allowed; }
 .contact-panel form[aria-busy="true"] .contact-actions button { cursor: wait; }
+
+/* Fragment links land on the card, clear of the fixed navigation. */
+.contact-form-target { scroll-margin-top: 160px; }
+.contact-form-target:focus { outline: none; }
+.contact-panel.reveal:has(.contact-form-target:target) { opacity: 1; transform: none; animation: none; }
+@media (max-width: 767px) { .contact-form-target { scroll-margin-top: 128px; } }

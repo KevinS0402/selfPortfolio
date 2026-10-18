@@ -8,7 +8,7 @@
 .site-cursor:is([data-mode="world"],[data-mode="portrait"],[data-mode="art"]) .cursor-ring-outline { width: 60px; height: 60px; border-color: var(--gold); }
 .site-cursor.is-pressed .cursor-ring-outline { scale: .8; }
 .cursor-caption { position: absolute; left: 0; top: 38px; transform: translateX(-50%); white-space: nowrap; color: var(--gold); font: 9px/1.4 ui-monospace,Consolas,monospace; letter-spacing: .13em; }
-.hero-pointer-light { position: absolute; inset: 0; pointer-events: none; }
+.hero-pointer-light { position: absolute; top: 0; left: 0; width: 840px; height: 840px; pointer-events: none; opacity: 0; background: radial-gradient(circle,#d6b45e13,transparent 70%); transition: opacity .2s; will-change: transform; }
 .interactive-hero .home-intro h1 { translate: calc(var(--hero-x,0px) * -.45) calc(var(--hero-y,0px) * -.45); }
 .universe-home .interactive-hero .home-portrait { transform: translate3d(var(--hero-x,0px),var(--hero-y,0px),0) rotate(3deg); }
 .pointer-surface .signal-lines { transform: translate3d(calc(var(--hero-x,0px) * 2),calc(var(--hero-y,0px) * 2),0); }
@@ -21,7 +21,7 @@
 .experience-category { display: block; color: var(--secondary); margin-top: 8px; font: 11px/1.6 ui-monospace,Consolas,monospace; }
 .portrait-sheen { position: absolute; inset: 0; pointer-events: none; }
 @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) and (forced-colors:none) {
-  .has-art-cursor, .has-art-cursor body, .has-art-cursor a, .has-art-cursor button, .has-art-cursor summary, .has-art-cursor [data-cursor] { cursor: none; }
+  .has-art-cursor, .has-art-cursor body, .has-art-cursor a, .has-art-cursor button, .has-art-cursor summary, .has-art-cursor [data-cursor] { cursor: url("/cursor-dot.svg") 8 8, auto; }
   .has-art-cursor input, .has-art-cursor textarea, .has-art-cursor select, .has-art-cursor [contenteditable="true"], .has-art-cursor iframe, .has-art-cursor [data-native-cursor] { cursor: auto; }
 }
 @media (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce), (forced-colors:active) {

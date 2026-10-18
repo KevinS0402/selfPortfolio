@@ -1,20 +1,16 @@
 "use client";
 
-import { useEffect, useId, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 
-import { installLiquidGlass } from "./liquidGlass";
 
-const surfaces = ".pointer-surface, .sequence-pin, .liquid-glass, .exhibit-node-art";
+const surfaces = ".liquid-glass, .exhibit-node-art";
 
 /** One event-driven pointer clock per page; pointer movement never re-renders React. */
 export function LivingSurface({ children }: { children: ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
-  const definitions = useRef<SVGDefsElement>(null);
-  const prefix = useId().replace(/[^a-zA-Z0-9_-]/g, "");
   useEffect(() => {
     const page = root.current;
-    if (!page || !definitions.current) return;
-    const removeGlass = installLiquidGlass(page, definitions.current, prefix);
+    if (!page) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
     const contrast = window.matchMedia("(forced-colors: active)");
@@ -22,9 +18,12 @@ export function LivingSurface({ children }: { children: ReactNode }) {
     let point: { x: number; y: number; element: Element } | null = null;
     const active = new Set<HTMLElement>();
     const visible = new Set<Element>();
-    const ambient = [...page.querySelectorAll(".contour-field, .liquid-glass, .music-score")];
+    const ambient = [...page.querySelectorAll(".contour-field, .liquid-glass, .music-score, .art-motif, .creative-orbit")];
     function refreshAmbient() {
-      ambient.forEach(element => element.setAttribute("data-ambient-active", String(!document.hidden && !reduced.matches && !contrast.matches && visible.has(element))));
+      ambient.forEach(element => {
+        const state = String(!document.hidden && !reduced.matches && !contrast.matches && visible.has(element));
+        if (element.getAttribute("data-ambient-active") !== state) element.setAttribute("data-ambient-active", state);
+      });
     }
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => { if (entry.isIntersecting) visible.add(entry.target); else visible.delete(entry.target); });
@@ -72,7 +71,7 @@ export function LivingSurface({ children }: { children: ReactNode }) {
         active.add(element);
       });
       const scene = point.element.closest(".pointer-surface, .sequence-pin");
-      scene?.querySelectorAll("svg.contour-field").forEach(svg => {
+      scene?.querySelectorAll(".contour-field").forEach(svg => {
         svg.dispatchEvent(new CustomEvent("portfolio-pointer-ripple", { detail: { clientX: point!.x, clientY: point!.y } }));
       });
     }
@@ -91,7 +90,7 @@ export function LivingSurface({ children }: { children: ReactNode }) {
     fine.addEventListener("change", preference);
     contrast.addEventListener("change", preference);
     return () => {
-      leave(); observer.disconnect(); removeGlass();
+      leave(); observer.disconnect();
       page.removeEventListener("pointermove", move);
       page.removeEventListener("pointerleave", leave);
       window.removeEventListener("blur", leave);
@@ -100,10 +99,9 @@ export function LivingSurface({ children }: { children: ReactNode }) {
       fine.removeEventListener("change", preference);
       contrast.removeEventListener("change", preference);
     };
-  }, [prefix]);
+  }, []);
 
   return <div ref={root} className="page-journey living-page">
-    <svg className="living-filter-defs" aria-hidden="true" focusable="false"><defs ref={definitions}/></svg>
     {children}
   </div>;
 }

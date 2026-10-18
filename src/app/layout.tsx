@@ -1,5 +1,6 @@
 import { media } from "@/data/media";
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
@@ -37,5 +38,5 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: "#09090B" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" data-scroll-behavior="smooth"><body className={inter.variable}><StructuredData data={siteStructuredData} /><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" tabIndex={-1}><SiteJourney>{children}</SiteJourney></main><SiteFooter /><SiteCursor /></body></html>;
+  return <html lang="en" data-scroll-behavior="smooth"><body className={inter.variable}><StructuredData data={siteStructuredData} /><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" tabIndex={-1}><SiteJourney>{children}</SiteJourney></main><SiteFooter /><SiteCursor />{process.env.VERCEL === "1" && process.env.VERCEL_ENV === "production" && <Analytics />}</body></html>;
 }

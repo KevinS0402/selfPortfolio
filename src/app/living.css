@@ -1,24 +1,12 @@
 /* Living contours and liquid lenses extend the existing black / white / gold system. */
 .living-filter-defs { position: absolute; width: 0; height: 0; pointer-events: none; }
-.contour-response { transform: translate(var(--flow-x,0px),var(--flow-y,0px)); transition: transform 700ms cubic-bezier(.2,.7,.2,1); }
-.contour-band { transform-box: view-box; transform-origin: 600px 320px; animation: contour-tide 16s ease-in-out infinite alternate; }
-.contour-band-1 { animation-delay: -7s; animation-direction: alternate-reverse; }
-.contour-band-2 { animation-delay: -11s; animation-duration: 21s; }
-.contour-ascii { opacity: .65; letter-spacing: 0; font-family: ui-monospace,Consolas,monospace; }
-.contour-ascii text { animation: none; text-anchor: middle; }
-.contour-travelers { fill: var(--gold); opacity: .65; }
-.contour-travelers circle { offset-path: path("M40 410 C240 360 320 200 540 300 S920 540 1170 310"); animation: contour-travel 20s linear infinite; animation-delay: calc(var(--particle-index) * -6.6s); }
-.contour-field * { animation-play-state: paused; }
-.contour-field:not([data-ambient-active="true"]) * { animation-play-state: paused; }
-.contour-field[data-ambient-active="true"] * { animation-play-state: running; }
-@keyframes contour-tide { from { transform: translate(-8px,5px) rotate(-.7deg); } to { transform: translate(10px,-9px) rotate(.8deg); } }
-@keyframes ascii-current { from { opacity: .25; translate: -4px 0; } to { opacity: .9; translate: 5px -2px; } }
-@keyframes contour-travel { from { offset-distance: 0%; opacity: 0; } 8%,90% { opacity: .8; } to { offset-distance: 100%; opacity: 0; } }
+.contour-field { contain: strict; }
+.contour-field > canvas { display: block; width: 100%; height: 100%; }
 
 /* A rounded lens, not a noise field: clear center, refracting rim, directional light. */
-.liquid-glass { position: relative; isolation: isolate; border: 1px solid #ffffff26; border-radius: 24px; background: radial-gradient(ellipse at var(--surface-x,22%) var(--surface-y,0%),#ffffff0c,transparent 65%),#17171b76; -webkit-backdrop-filter: blur(8px) var(--glass-filter,blur(0px)) saturate(125%); backdrop-filter: blur(8px) var(--glass-filter,blur(0px)) saturate(125%); box-shadow: 0 12px 32px #0003,0 2px 5px #0002,inset 0 1px 1px #ffffff16,inset 0 -1px 1px #0003; transition: border-color .3s,box-shadow .3s; }
+.liquid-glass { position: relative; isolation: isolate; border: 1px solid #ffffff26; border-radius: 24px; background: radial-gradient(ellipse at var(--surface-x,22%) var(--surface-y,0%),#ffffff0c,transparent 65%),#17171bdb; -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: 0 12px 32px #0003,0 2px 5px #0002,inset 0 1px 1px #ffffff16,inset 0 -1px 1px #0003; transition: border-color .3s,box-shadow .3s; }
 .liquid-glass::before,.liquid-glass::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: -1; mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite: exclude; }
-.liquid-glass::before { padding: 5px; background: radial-gradient(ellipse at var(--surface-x,22%) var(--surface-y,0%),#ffffff16,transparent 65%); opacity: .45; }
+.liquid-glass::before {  padding: 5px; background: radial-gradient(ellipse at var(--surface-x,22%) var(--surface-y,0%),#ffffff16,transparent 65%); opacity: .45; }
 .liquid-glass::after { padding: 1px; background: conic-gradient(from var(--glass-angle,-35deg) at 50% 50%,#ffffff90,transparent 16%,#ffffff08 38%,#ffffff40 50%,transparent 65%,#ffffff08 85%,#ffffff90); opacity: .45; transition: opacity .3s; }
 .liquid-glass:is([data-pointer-active="true"],:focus-within)::after { opacity: .9; }
 .liquid-glass:is([data-pointer-active="true"],:focus-within) { border-color: #ffffff42; box-shadow: 0 16px 40px #0004,0 2px 5px #0002,inset 0 1px 1px #ffffff22; }
@@ -90,7 +78,7 @@
 @media (prefers-reduced-motion:reduce) {
   .contour-response,.contour-ascii,.exhibit-node-art { transform: none !important; translate: none !important; }
   .contour-travelers { display: none; }
-  .liquid-glass { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+  .liquid-glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .liquid-glass::before { backdrop-filter: none; }
   .liquid-glass::after { animation: none; opacity: .3; }
   .music-score svg path { scale: none; }
@@ -101,14 +89,6 @@
 }
 @supports not (backdrop-filter:blur(1px)) { .liquid-glass { background: #151519; } .liquid-glass::before { backdrop-filter: none; } }
 
-/* Dither density flows continuously; pointer waves scramble individual glyphs. */
-.contour-dither-cloud { opacity: .6; }
-.dither-blob { animation: dither-drift 19s ease-in-out infinite alternate; }
-.dither-blob-two { animation-duration: 25s; animation-delay: -9s; animation-direction: alternate-reverse; }
-.dither-ripples { fill: currentColor; }
-.ascii-ripple[data-rippling="true"] .contour-ascii { opacity: 1; fill: #fae6af; }
-@keyframes dither-drift { from { transform: translate(-130px,40px) scale(.85); } to { transform: translate(170px,-45px) scale(1.15); } }
-@media (prefers-reduced-motion:reduce),(forced-colors:active) { .dither-ripples { display: none; } }
 /* Readable layout boxes determine pin eligibility; decorations may overflow freely. */
 .exhibit-wires[data-mask-ready="false"] { visibility: hidden; }
 .exhibit-wires > g > path:first-child { opacity: .2; }
@@ -164,7 +144,7 @@
 /* Give every stop a reading interval. Native scrolling remains unrestricted. */
 @media (min-width:640px) and (min-height:650px) and (prefers-reduced-motion:no-preference) {
   .scroll-sequence[data-enhanced="true"][data-pin-fits="true"] {
-    min-height: calc(100svh - 88px + var(--journey-lead,0px) + var(--journey-stages,1) * max(480px,70svh));
+    min-height: calc(100svh - 88px + var(--journey-lead,0px) + var(--journey-stages,1) * max(480px,70svh) + clamp(96px,18svh,180px));
   }
 }
 
@@ -174,4 +154,78 @@
   .about-story .personal-waypoints > li > .reveal { flex: 1; display: flex; flex-direction: column; }
   .about-story .personal-waypoints > li > .chapter-number { margin-bottom: 4px; }
   .about-story .personal-waypoints > li > .reveal > .tilt-visual { margin-top: auto; }
+}
+
+/* Readable content never passes through a refracting filter. Touch devices keep
+   the material and highlights without allocating SVG lens surfaces. */
+@media (hover:none),(pointer:coarse) {
+  .liquid-glass { background-color: #17171bd9; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .liquid-glass::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+.linkedin-frame.liquid-glass { -webkit-backdrop-filter: none; backdrop-filter: none; }
+.linkedin-frame.liquid-glass::before { -webkit-backdrop-filter: none; backdrop-filter: none; }
+
+.living-page :is(.art-motif,.creative-orbit):not([data-ambient-active="true"]),
+.living-page :is(.art-motif,.creative-orbit):not([data-ambient-active="true"]) * { animation-play-state: paused; }
+
+/* Reserve the tallest explanation instead of resizing the sticky container at
+   each step. Visibility keeps inactive prose out of reading and tab order. */
+.scroll-sequence { overflow-anchor: none; }
+.scroll-sequence[data-enhanced="true"] .exhibit-explanations { display: grid; }
+.scroll-sequence[data-enhanced="true"] .exhibit-explanation { grid-area: 1 / 1; margin-bottom: 0; }
+.scroll-sequence[data-enhanced="true"] .exhibit-explanation:not(.is-active) { display: block; visibility: hidden; pointer-events: none; }
+@media (min-width:640px) and (min-height:650px) {
+  .journey-world-detail { min-height: 220px; }
+}
+
+/* No scroll-driven full-panel paint; the texture and input ripple own the motion. */
+.exhibit-canvas::before { background: radial-gradient(ellipse at 50% 45%,#d6b45e09,transparent 45%); }
+.music-sequence[data-enhanced="true"] .music-detail { transform: none; }
+
+.linkedin-embed-slot { height: var(--embed-height); border-radius: 15px; background: #ffffff06; }
+@media (max-width:767px) { .linkedin-embed-slot { height: 760px; } }
+
+/* Reading rhythm: short, finite entrances with no blur, layout animation, or
+   whole-page transform. Existing layout boxes (including sticky headers) stay put. */
+@keyframes text-arrival {
+  from { opacity: 0; transform: translate3d(0,14px,0); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion:no-preference) {
+  .text-arrival,
+  .journey-chapter-hero .chapter-role,
+  .journey-case-hero h1,.journey-case-hero .chapter-subtitle,.journey-case-hero .case-meta {
+    animation: text-arrival .7s var(--journey-ease) both;
+  }
+  .home-statement.text-arrival { animation-delay: .3s; }
+  .home-throughline.text-arrival { animation-delay: .46s; }
+  .home-context.text-arrival { animation-delay: .62s; }
+  .hero-actions.text-arrival { animation-delay: .78s; }
+  .portrait-caption.text-arrival { animation-delay: .5s; }
+  .chapter-title-arrival,.journey-case-hero h1 { animation-delay: .1s; }
+  .journey-chapter-hero .chapter-subtitle,.journey-case-hero .chapter-subtitle { animation-delay: .26s; }
+  .journey-chapter-hero .chapter-role,.journey-case-hero .case-meta { animation-delay: .4s; }
+  .reveal.is-revealed { animation-duration: .7s; }
+  .reveal-sequence.is-revealed { animation: none; }
+  .reveal-sequence.is-ready:not(.is-revealed) { opacity: 1; transform: none; }
+  .reveal-sequence.is-ready:not(.is-revealed) > :not(.sr-only) { opacity: 0; transform: translate3d(0,14px,0); }
+  .reveal-sequence.is-revealed > :not(.sr-only) {
+    animation: text-arrival .7s var(--journey-ease) both;
+    animation-delay: var(--reveal-delay,0s);
+  }
+  .reveal-sequence.is-revealed > :nth-child(2) { animation-delay: calc(var(--reveal-delay,0s) + .12s); }
+  .reveal-sequence.is-revealed > :nth-child(n+3) { animation-delay: calc(var(--reveal-delay,0s) + .24s); }
+  .preview-text-arrival > :is(span,h3,p),.exhibit-explanation.is-active > :is(span,p) { animation: text-arrival .42s var(--journey-ease) both; }
+  .preview-text-arrival > h3 { animation-delay: .04s; }
+  .preview-text-arrival > p,.exhibit-explanation.is-active > p { animation-delay: .1s; }
+}
+/* Keyboard users can reach actions immediately, without waiting for a delay. */
+.text-arrival:focus-within,
+.reveal-eager,.reveal-eager > *,
+.reveal-sequence:focus-within,.reveal-sequence:focus-within > * { animation: none !important; opacity: 1 !important; transform: none !important; }
+@media (prefers-reduced-motion:reduce),(forced-colors:active) {
+  .text-arrival,.reveal,.reveal > *,
+  .journey-chapter-hero .chapter-role,
+  .journey-case-hero h1,.journey-case-hero .chapter-subtitle,.journey-case-hero .case-meta,
+  .preview-text-arrival > *,.exhibit-explanation.is-active > * { animation: none !important; opacity: 1 !important; transform: none !important; }
 }

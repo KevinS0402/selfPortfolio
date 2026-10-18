@@ -2,8 +2,8 @@
 
 import { useReducedMotion } from "./useMotionPreference";
 
-import { motion, useMotionTemplate, useMotionValue, useSpring, type MotionStyle } from "framer-motion";
-import type { ReactNode } from "react";
+import { motion, useSpring } from "framer-motion";
+import { useRef, type ReactNode } from "react";
 
 function allowsPointer(pointerType: string) {
   return pointerType === "mouse" && window.matchMedia("(hover: hover) and (pointer: fine) and (forced-colors: none)").matches;
@@ -15,23 +15,16 @@ export function HeroInteraction({ children }: { children: ReactNode }) {
 
 export function PointerSurface({ children, className, id }: { children: ReactNode; className: string; id?: string }) {
   const reduced = useReducedMotion();
-  const mouseX = useMotionValue(0), mouseY = useMotionValue(0);
-  const driftX = useSpring(0, { stiffness: 100, damping: 24 });
-  const driftY = useSpring(0, { stiffness: 100, damping: 24 });
-  const light = useSpring(0, { stiffness: 120, damping: 24 });
-  const dx = useMotionTemplate`${driftX}px`, dy = useMotionTemplate`${driftY}px`;
-  const background = useMotionTemplate`radial-gradient(420px circle at ${mouseX}px ${mouseY}px, rgba(214,180,94,.09), transparent 75%)`;
-  return <motion.section id={id} className={`${className} pointer-surface`} style={reduced ? undefined : { "--hero-x": dx, "--hero-y": dy } as MotionStyle} onPointerMove={event => {
-    if (reduced || !allowsPointer(event.pointerType)) return;
+  const light = useRef<HTMLDivElement>(null);
+  return <section id={id} className={`${className} pointer-surface`} onPointerMove={event => {
+    if (reduced || !allowsPointer(event.pointerType) || !light.current) return;
     const bounds = event.currentTarget.getBoundingClientRect();
-    mouseX.set(event.clientX - bounds.left); mouseY.set(event.clientY - bounds.top);
-    driftX.set(((event.clientX - bounds.left) / bounds.width - .5) * 28);
-    driftY.set(((event.clientY - bounds.top) / bounds.height - .5) * 20);
-    light.set(1);
-  }} onPointerLeave={() => { driftX.set(0); driftY.set(0); light.set(0); }}>
-    <motion.div className="hero-pointer-light" style={{ background, opacity: light }} aria-hidden="true" />
+    light.current.style.transform = `translate3d(${event.clientX - bounds.left - 420}px,${event.clientY - bounds.top - 420}px,0)`;
+    light.current.style.opacity = "1";
+  }} onPointerLeave={() => { if (light.current) light.current.style.opacity = "0"; }}>
+    <div ref={light} className="hero-pointer-light" aria-hidden="true" />
     {children}
-  </motion.section>;
+  </section>;
 }
 
 export function TiltVisual({ children, className = "" }: { children: ReactNode; className?: string }) {

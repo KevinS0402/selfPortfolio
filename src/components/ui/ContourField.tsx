@@ -1,26 +1,105 @@
-import { useId, type CSSProperties } from "react";
-import { AsciiRipple } from "./AsciiRipple";
-import { contourY } from "./contourGeometry";
+"use client";
 
-export function ContourField({ variant = "terrain", className = "" }: { variant?: "terrain" | "circuit" | "community" | "sound"; className?: string }) {
-  const id = useId().replace(/:/g, "");
-  const paths = Array.from({ length: 48 }, (_, row) => {
-    const points = Array.from({ length: 101 }, (_, col) => {
-      const x = col * 12;
-      const u = col / 100;
-      const v = row / 47;
-      const y = contourY(variant, u, v);
-      return `${col === 0 ? "M" : "L"}${x},${y.toFixed(2)}`;
-    }).join(" ");
-    return <path key={row} d={points} pathLength="1" className={row % 6 === 0 ? "contour-major" : undefined} />;
-  });
-  return <svg className={`contour-field contour-${variant} ${className}`} viewBox="0 0 1200 640" fill="none" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
-    <defs>
-      <radialGradient id={`${id}-light`}><stop offset="0" stopColor="white" /><stop offset="1" stopColor="black" /></radialGradient>
-      <mask id={`${id}-mask`}><rect width="1200" height="640" fill={`url(#${id}-light)`} /></mask>
-      <pattern id={`${id}-dots`} width="7" height="7" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".65" fill="currentColor" /></pattern>
-      <mask id={`${id}-dither-flow`}><ellipse className="dither-blob dither-blob-one" cx="320" cy="360" rx="340" ry="205" fill={`url(#${id}-light)`}/><ellipse className="dither-blob dither-blob-two" cx="840" cy="280" rx="310" ry="220" fill={`url(#${id}-light)`}/></mask>
-    </defs>
-    <g className="contour-response"><g mask={`url(#${id}-mask)`}><rect width="1200" height="640" fill={`url(#${id}-dots)`} opacity=".14" /><rect className="contour-dither-cloud" width="1200" height="640" fill={`url(#${id}-dots)`} mask={`url(#${id}-dither-flow)`}/><g className="contour-flow">{[0,1,2].map(band=><g key={band} className={`contour-lines contour-band contour-band-${band}`}>{paths.slice(band*16,(band+1)*16)}</g>)}</g><AsciiRipple variant={variant}/><g className="contour-travelers">{[0,1,2].map(index=><circle key={index} r="2" style={{"--particle-index":index} as CSSProperties}/>)}</g></g></g>
-  </svg>;
+import { useEffect, useRef } from "react";
+import { createContourRenderer, type ContourMessage, type ContourFade } from "./contourRenderer";
+import { pointerInQuad } from "./contourCoordinates";
+import type { ContourVariant } from "./contourGeometry";
+
+let worker: Worker | undefined;
+let nextId = 0;
+const clients = new Map<number, () => void>();
+
+export function ContourField({ variant = "terrain", className = "" }: { variant?: ContourVariant; className?: string }) {
+  const root = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = root.current;
+    if (!element) return;
+    const id = ++nextId;
+    const fade: ContourFade = element.closest(".journey-chapter-hero") ? "horizontal"
+      : element.matches(".hero-contours,.linkedin-atmosphere,.contact-contours") || element.closest(".exhibit-canvas,.music-sequence") ? "vertical" : "radial";
+    const corners = [...element.querySelectorAll<HTMLElement>("[data-contour-corner]")];
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const forced = window.matchMedia("(forced-colors: active)");
+    let canvas = document.createElement("canvas");
+    canvas.setAttribute("aria-hidden", "true"); element.append(canvas);
+    let fallback: ReturnType<typeof createContourRenderer> | undefined;
+    let transferred = false, disposed = false, frame = 0, previous = 0;
+    let visible = false;
+    function animate(now: number) {
+      frame = 0;
+      if (!fallback?.running || disposed) return;
+      if (now - previous >= (fallback.interactive ? 16 : 100)) { previous = now; fallback.tick(now); }
+      frame = requestAnimationFrame(animate);
+    }
+    function send(message: ContourMessage) {
+      if (disposed) return;
+      if (transferred) worker?.postMessage(message);
+      else if (fallback) {
+        if (message.type === "resize") fallback.resize(message.width, message.height, message.ratio);
+        else if (message.type === "active") { fallback.setActive(message.active, message.reduced); if (fallback.running && !frame) frame = requestAnimationFrame(animate); }
+        else if (message.type === "pointer") fallback.pointer(message.x, message.y, performance.now());
+      }
+    }
+    function resize() {
+      const width = element!.clientWidth, height = element!.clientHeight;
+      if (width && height) send({ type: "resize", id, width, height, ratio: Math.min(window.devicePixelRatio, 1.5) });
+    }
+    function visibility() { send({ type: "active", id, active: visible && !document.hidden && !forced.matches, reduced: reduced.matches }); }
+    function mainThreadFallback() {
+      if (disposed || fallback) return;
+      if (transferred) {
+        canvas.remove(); canvas = document.createElement("canvas"); canvas.setAttribute("aria-hidden", "true"); element!.append(canvas);
+      }
+      transferred = false;
+      fallback = createContourRenderer(canvas, variant, fade);
+      element!.dataset.renderer = "canvas";
+      resize(); visibility();
+    }
+    try {
+      if (typeof Worker === "undefined" || !canvas.transferControlToOffscreen) mainThreadFallback();
+      else {
+        if (!worker) {
+          worker = new Worker(new URL("./contour.worker.ts", import.meta.url));
+          worker.onerror = () => {
+            worker?.terminate(); worker = undefined;
+            clients.forEach(recover => recover());
+          };
+        }
+        clients.set(id, mainThreadFallback);
+        const surface = canvas.transferControlToOffscreen(); transferred = true;
+        worker.postMessage({ type: "init", id, canvas: surface, variant, fade } satisfies ContourMessage, [surface]);
+        element.dataset.renderer = "worker";
+      }
+    } catch { mainThreadFallback(); }
+    const observer = new IntersectionObserver(entries => { visible = entries[0]?.isIntersecting ?? false; visibility(); });
+    observer.observe(element);
+    const size = new ResizeObserver(resize); size.observe(element);
+    function pointer(event: Event) {
+      if (reduced.matches || !visible) return;
+      const { clientX, clientY } = (event as CustomEvent<{clientX: number; clientY: number}>).detail;
+      const position = pointerInQuad({ x: clientX, y: clientY }, corners.map(corner => {
+        const bounds = corner.getBoundingClientRect();
+        return { x: bounds.left, y: bounds.top };
+      }));
+      // Ignore input outside the actual plane instead of producing a detached wave.
+      if (!position || position.x < 0 || position.x > 1 || position.y < 0 || position.y > 1) return;
+      send({ type: "pointer", id, ...position });
+    }
+    element.addEventListener("portfolio-pointer-ripple", pointer);
+    reduced.addEventListener("change", visibility); forced.addEventListener("change", visibility);
+    document.addEventListener("visibilitychange", visibility);
+    resize();
+    return () => {
+      send({ type: "dispose", id }); disposed = true;
+      fallback?.dispose(); cancelAnimationFrame(frame); observer.disconnect(); size.disconnect(); canvas.remove();
+      clients.delete(id);
+      if (!clients.size) { worker?.terminate(); worker = undefined; }
+      element.removeEventListener("portfolio-pointer-ripple", pointer);
+      reduced.removeEventListener("change", visibility); forced.removeEventListener("change", visibility);
+      document.removeEventListener("visibilitychange", visibility);
+    };
+  }, [variant]);
+  return <div ref={root} className={`contour-field contour-${variant} ${className}`} aria-hidden="true" style={{maskImage:"none"}}>
+    {[[0,0],[100,0],[100,100],[0,100]].map(([x,y], index) => <span key={index} data-contour-corner style={{position:"absolute",left:`${x}%`,top:`${y}%`,width:0,height:0}} />)}
+  </div>;
 }

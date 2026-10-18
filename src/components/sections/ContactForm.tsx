@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, type FormEvent } from "react";
+import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
 import { ContactCaptcha } from "@/components/ui/ContactCaptcha";
 import { Arrow } from "@/components/ui/Arrow";
 import { ContourField } from "@/components/ui/ContourField";
@@ -20,6 +20,61 @@ export function ContactForm() {
   const onCaptchaToken = useCallback((token: string) => { captchaToken.current = token; }, []);
   const submission = useRef<string | null>(null);
   const result = useRef<HTMLDivElement>(null);
+  const formTarget = useRef<HTMLFormElement>(null);
+
+  useEffect(() => {
+    const form = formTarget.current;
+    const page = form?.closest(".about-chapter");
+    if (!form || !page) return;
+    let frame = 0;
+    let followingAnchor = false;
+    function align() {
+      frame = 0;
+      if (!followingAnchor || window.location.hash !== "#contact-form") return;
+      const margin = parseFloat(getComputedStyle(form!).scrollMarginTop) || 112;
+      const top = window.scrollY + form!.getBoundingClientRect().top - margin;
+      if (Math.abs(window.scrollY - top) > 1) window.scrollTo({ top, behavior: "instant" });
+    }
+    function schedule() { if (followingAnchor && !frame) frame = requestAnimationFrame(align); }
+    function activate() {
+      followingAnchor = window.location.hash === "#contact-form";
+      if (followingAnchor) { form!.focus({ preventScroll: true }); schedule(); }
+    }
+    function clicked(event: MouseEvent) {
+      const anchor = event.target instanceof Element ? event.target.closest("a[href]") : null;
+      if (!(anchor instanceof HTMLAnchorElement) || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const url = new URL(anchor.href);
+      if (url.origin === location.origin && url.pathname === location.pathname && url.hash === "#contact-form") {
+        // Run after native fragment navigation, including a repeat click on the same hash.
+        followingAnchor = true;
+        requestAnimationFrame(activate);
+      }
+    }
+    function stopFollowing() { followingAnchor = false; cancelAnimationFrame(frame); frame = 0; }
+    // Sticky sections establish their full height during hydration. Keep this one
+    // destination aligned while layout settles, then yield as soon as the user moves.
+    const size = new ResizeObserver(schedule);
+    size.observe(page);
+    window.addEventListener("hashchange", activate);
+    window.addEventListener("pageshow", activate);
+    document.addEventListener("click", clicked);
+    window.addEventListener("wheel", stopFollowing, { passive: true });
+    window.addEventListener("touchmove", stopFollowing, { passive: true });
+    window.addEventListener("keydown", stopFollowing);
+    window.addEventListener("pointerdown", stopFollowing, { passive: true });
+    void document.fonts.ready.then(schedule);
+    activate();
+    return () => {
+      followingAnchor = false; cancelAnimationFrame(frame); size.disconnect();
+      window.removeEventListener("hashchange", activate);
+      window.removeEventListener("pageshow", activate);
+      document.removeEventListener("click", clicked);
+      window.removeEventListener("wheel", stopFollowing);
+      window.removeEventListener("touchmove", stopFollowing);
+      window.removeEventListener("keydown", stopFollowing);
+      window.removeEventListener("pointerdown", stopFollowing);
+    };
+  }, []);
 
   async function send(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,9 +114,9 @@ export function ContactForm() {
   const hint = (field: FieldName) => errors[field] ? <span className="contact-field-error" id={`contact-${field}-error`}>{errors[field]}</span> : null;
   const description = (field: FieldName) => errors[field] ? `contact-${field}-error` : undefined;
 
-  return <section className="container contact-section" id="contact-form" aria-labelledby="contact-heading">
+  return <section className="container contact-section" aria-labelledby="contact-heading">
     <ContourField className="contact-contours"/><Reveal className="contact-intro"><h2 id="contact-heading">Something we should <em>build together?</em></h2><p>An idea, an opportunity, or a music rec. Say hi.</p><a className="text-link" href="mailto:kevin.song.1@vanderbilt.edu">Email me directly<Arrow direction="external" /></a></Reveal>
-    <Reveal className="contact-panel liquid-glass"><form onSubmit={send} onChange={() => { submission.current = null; if (status !== "sending") { setStatus("idle"); setNotice(""); } }} aria-busy={status === "sending"}>
+    <Reveal className="contact-panel liquid-glass"><form ref={formTarget} id="contact-form" className="contact-form-target" tabIndex={-1} aria-label="Send Kevin a message" onSubmit={send} onChange={() => { submission.current = null; if (status !== "sending") { setStatus("idle"); setNotice(""); } }} aria-busy={status === "sending"}>
       <fieldset disabled={status === "sending"}>
         <legend className="sr-only">Send Kevin a message</legend>
         <div className="contact-field-pair">

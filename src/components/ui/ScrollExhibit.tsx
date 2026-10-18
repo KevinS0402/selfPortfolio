@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
 import { useJourney } from "./useJourney";
+import { Reveal } from "./Reveal";
 import { ContourField } from "./ContourField";
 import { ExhibitSymbol } from "./ExhibitSymbol";
 import { Arrow } from "./Arrow";
@@ -34,7 +35,7 @@ export function ScrollExhibit({title,description,name,steps,href,linkLabel="Expl
   }, [ref, steps.length]);
   return <div ref={ref} className={`scroll-sequence exhibit-sequence exhibit-${variant}`} data-stage={stage}>
     <section className="sequence-pin container" aria-label={`${name} exploration`}>
-      <div className="exhibit-heading"><h2>{title}</h2><p>{description}</p></div>
+      <Reveal stagger className="exhibit-heading"><h2>{title}</h2><p>{description}</p></Reveal>
       <div className="exhibit-canvas">
         <ContourField variant={variant === "practice" ? "circuit" : variant}/><div className="exhibit-name">{name}</div>
         <svg className="exhibit-wires" data-mask-ready={covers.length > 0} viewBox="0 0 1000 180" preserveAspectRatio="none" aria-hidden="true"><defs><mask id={wireMask} maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="180"><rect width="1000" height="180" fill="white"/>{covers.map((cover,index)=><rect key={index} {...cover} rx="8" fill="black"/>)}</mask></defs><g mask={`url(#${wireMask})`}><path d="M50 90 C220 90 200 20 350 90 S600 160 650 90 S820 20 950 90"/><path className="wire-lit" d="M50 90 C220 90 200 20 350 90 S600 160 650 90 S820 20 950 90" pathLength="1"/></g></svg>

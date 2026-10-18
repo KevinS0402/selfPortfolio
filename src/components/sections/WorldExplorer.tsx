@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { WorldModel, type WorldIndex } from "@/components/ui/WorldModel";
 import { chapters, featuredProjects, impactInitiatives } from "@/data/journey";
+import { Reveal } from "@/components/ui/Reveal";
 import { ContourField } from "@/components/ui/ContourField";
 import { useJourney } from "@/components/ui/useJourney";
 import { Arrow } from "@/components/ui/Arrow";
@@ -41,7 +42,7 @@ export function WorldExplorer() {
     observer.observe(scroller);return()=>observer.disconnect();
   },[]);
   return <div ref={ref} id="explore" className="scroll-sequence world-sequence" data-stage={stage}>
-    <header className="container journey-world-heading"><p className="mono-label">Explore Kevin’s world</p><h2 id="world-heading">Start anywhere.<br /><em>See how it all connects.</em></h2><p id="world-instructions"><span className="world-desktop-hint">Scroll to discover. Hover a room to preview. Follow a link to explore.</span><span className="world-mobile-hint">Swipe to preview. Follow a link to explore.</span></p></header>
+    <Reveal as="header" stagger className="container journey-world-heading"><p className="mono-label">Explore Kevin’s world</p><h2 id="world-heading">Start anywhere.<br /><em>See how it all connects.</em></h2><p id="world-instructions"><span className="world-desktop-hint">Scroll to discover. Hover a room to preview. Follow a link to explore.</span><span className="world-mobile-hint">Swipe to preview. Follow a link to explore.</span></p></Reveal>
     <section className="sequence-pin" aria-labelledby="world-heading">
       <ContourField className="world-contours" />
       <div className="container world-sequence-inner">
@@ -61,7 +62,7 @@ export function WorldExplorer() {
         </div>
         <span className="sr-only" role="status" aria-live="polite">{announcement}</span>
         <div className="journey-world-detail" id="world-detail">
-          <div className="world-description"><span className="mono-label">{space.number} / {space.label}</span><h3>{space.label === "Engineering" ? "What I build. How I think." : space.label === "Impact" ? "Make room for more." : "A little beyond the résumé."}</h3><p>{space.description}</p></div>
+          <div key={space.label} className="world-description preview-text-arrival"><span className="mono-label">{space.number} / {space.label}</span><h3>{space.label === "Engineering" ? "What I build. How I think." : space.label === "Impact" ? "Make room for more." : "A little beyond the résumé."}</h3><p>{space.description}</p></div>
           <div className="glass-note liquid-glass world-index"><span className="mono-label">Inside {space.label}</span>{space.links.map(link=><Link key={link.title} href={link.href} target={link.href.startsWith("https:")?"_blank":undefined} rel={link.href.startsWith("https:")?"noreferrer":undefined}>{link.title}<Arrow direction={link.href.startsWith("https:")?"external":"right"} /></Link>)}<Link className="world-destination" href={space.href}>Explore {space.label}<Arrow /></Link></div>
         </div>
         <div className="sequence-track" aria-hidden="true"><span /></div>
