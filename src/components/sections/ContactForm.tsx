@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type FormEvent } from "react";
+import { trackPortfolioEvent } from "@/lib/portfolioAnalytics";
 import { ContactCaptcha } from "@/components/ui/ContactCaptcha";
 import { Arrow } from "@/components/ui/Arrow";
 import { ContourField } from "@/components/ui/ContourField";
@@ -80,6 +81,7 @@ export function ContactForm() {
     event.preventDefault();
     if (status === "sending") return;
     if (!CAPTCHA_SITE_KEY || !captchaToken.current) {
+      trackPortfolioEvent("contact_failed",{outcome:"captcha"});
       setStatus("error");
       setNotice(CAPTCHA_SITE_KEY ? "Please complete the reCAPTCHA check before sending." : "The contact form is temporarily unavailable. Please email me directly.");
       requestAnimationFrame(() => result.current?.focus({ preventScroll: true }));
@@ -100,9 +102,11 @@ export function ContactForm() {
         setErrors(payload.fields || {});
         throw new Error(typeof payload.error === "string" ? payload.error : "Your message couldn’t be sent. Please try again, or email me directly.");
       }
+      trackPortfolioEvent("contact_submitted");
       form.reset(); submission.current = null;
       setStatus("sent"); setNotice("Message sent. Thanks for reaching out!");
     } catch (error) {
+      trackPortfolioEvent("contact_failed",{outcome:"send_error"});
       setStatus("error");
       setNotice(error instanceof Error && error.name !== "TimeoutError" && error.name !== "AbortError" && error.name !== "SyntaxError" && error.name !== "TypeError" ? error.message : "Your message couldn’t be sent. Please try again, or email me directly.");
     }

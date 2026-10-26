@@ -41,7 +41,7 @@ export function WorldExplorer() {
     });
     observer.observe(scroller);return()=>observer.disconnect();
   },[]);
-  return <div ref={ref} id="explore" className="scroll-sequence world-sequence" data-stage={stage}>
+  return <div ref={ref} id="explore" className="scroll-sequence world-sequence" data-analytics-sequence="worlds" data-stage={stage}>
     <Reveal as="header" stagger className="container journey-world-heading"><p className="mono-label">Explore Kevin’s world</p><h2 id="world-heading">Start anywhere.<br /><em>See how it all connects.</em></h2><p id="world-instructions"><span className="world-desktop-hint">Scroll to discover. Hover a room to preview. Follow a link to explore.</span><span className="world-mobile-hint">Swipe to preview. Follow a link to explore.</span></p></Reveal>
     <section className="sequence-pin" aria-labelledby="world-heading">
       <ContourField className="world-contours" />

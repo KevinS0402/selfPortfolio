@@ -7,7 +7,7 @@ import { CreativeOrbit } from "./CreativeOrbit";
 
 export function MusicJourney() {
   const {ref}=useJourney();
-  return <div ref={ref} className="scroll-sequence music-sequence"><section className="sequence-pin container" aria-labelledby="music-heading">
+  return <div ref={ref} className="scroll-sequence music-sequence" data-analytics-sequence="ksong"><section className="sequence-pin container" aria-labelledby="music-heading">
     <ContourField variant="sound"/>
     <Reveal stagger className="music-heading"><h2 id="music-heading">Same Kevin.<br/><em>Another voice.</em></h2><p>Two languages. A sound of my own.</p></Reveal>
     <div className="music-score" aria-hidden="true"><span>EN</span><svg viewBox="0 0 1000 200" preserveAspectRatio="none"><path d="M0 100h1000"/>{Array.from({length:91},(_,i)=>{const height=8+Math.abs(Math.sin(i*.81)*Math.cos(i*.18))*150;return <path key={i} d={`M${i*11+5} ${(100-height/2).toFixed(2)}v${height.toFixed(2)}`}/>;})}</svg><span lang="zh-Hans">中文</span></div>

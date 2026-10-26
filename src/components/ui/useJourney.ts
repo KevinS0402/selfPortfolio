@@ -1,5 +1,6 @@
 "use client";
 
+import { trackPortfolioEvent } from "@/lib/portfolioAnalytics";
 import { useEffect, useRef, useState } from "react";
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
@@ -139,6 +140,14 @@ export function useJourney(count = 1) {
       desktop.removeEventListener("change", invalidate);
     };
   }, [count]);
+
+  useEffect(() => {
+    const root = ref.current;
+    const name = root?.dataset.analyticsSequence;
+    if (!root || !name) return;
+    const bounds = root.getBoundingClientRect();
+    if (bounds.bottom > 90 && bounds.top < innerHeight) trackPortfolioEvent("sequence_step_viewed",{sequence:name,step:stage+1},`sequence-${name}-${stage+1}`);
+  }, [stage]);
 
   function select(index: number) {
     scrollIntent.current = false;

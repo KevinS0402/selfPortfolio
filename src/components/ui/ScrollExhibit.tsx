@@ -33,7 +33,7 @@ export function ScrollExhibit({title,description,name,steps,href,linkLabel="Expl
     measure();
     return () => observer.disconnect();
   }, [ref, steps.length]);
-  return <div ref={ref} className={`scroll-sequence exhibit-sequence exhibit-${variant}`} data-stage={stage}>
+  return <div ref={ref} className={`scroll-sequence exhibit-sequence exhibit-${variant}`} data-analytics-sequence={name} data-stage={stage}>
     <section className="sequence-pin container" aria-label={`${name} exploration`}>
       <Reveal stagger className="exhibit-heading"><h2>{title}</h2><p>{description}</p></Reveal>
       <div className="exhibit-canvas">

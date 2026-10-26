@@ -18,7 +18,7 @@ export default function Home() {
         <div className="home-context text-arrival"><p>CS + Business at Vanderbilt <span>· Ingram Scholar</span></p><p>Product &amp; Engineering at Elysian</p></div>
         <div className="hero-actions text-arrival"><MagneticLink href="#explore" className="button button-primary explore-button">Explore<Arrow direction="down" /></MagneticLink><MagneticLink href="/about/#contact-form" className="button button-secondary">Say hi<Arrow /></MagneticLink></div>
       </div>
-      <div className="home-portrait"><Portrait /><p className="portrait-caption text-arrival">A few different worlds. <span>One Kevin.</span></p></div>
+      <div className="home-portrait"><Portrait /><p className="portrait-caption text-arrival">A few different worlds. <span>All connected.</span></p></div>
     </div><div className="hero-bottom container"><span>Software / community / music</span><a href="#explore">Follow the thread<Arrow direction="down" /></a></div></HeroInteraction>
     <WorldExplorer />
     <LinkedInPosts />

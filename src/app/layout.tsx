@@ -11,6 +11,7 @@ import "./arrival.css";
 import "./pointer.css";
 import "./worlds.css";
 import "./contact.css";
+import { PortfolioAnalytics } from "@/components/analytics/PortfolioAnalytics";
 import "./journey.css";
 import "./living.css";
 import { SiteJourney } from "@/components/ui/SiteJourney";
@@ -38,5 +39,5 @@ export const metadata: Metadata = {
 };
 export const viewport: Viewport = { themeColor: "#09090B" };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" data-scroll-behavior="smooth"><body className={inter.variable}><StructuredData data={siteStructuredData} /><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" tabIndex={-1}><SiteJourney>{children}</SiteJourney></main><SiteFooter /><SiteCursor />{process.env.VERCEL === "1" && process.env.VERCEL_ENV === "production" && <Analytics />}</body></html>;
+  return <html lang="en" data-scroll-behavior="smooth"><body className={inter.variable}><StructuredData data={siteStructuredData} /><a className="skip-link" href="#main-content">Skip to content</a><SiteHeader /><main id="main-content" tabIndex={-1}><SiteJourney>{children}</SiteJourney></main><SiteFooter /><SiteCursor /><PortfolioAnalytics enabled={process.env.VERCEL_ENV === "production" || process.env.POSTHOG_LOCAL_TEST === "1"} environment={process.env.VERCEL_ENV === "production" ? "production" : "test"}/>{process.env.VERCEL === "1" && process.env.VERCEL_ENV === "production" && <Analytics />}</body></html>;
 }
