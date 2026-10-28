@@ -2,7 +2,8 @@
 
 import { useReducedMotion } from "./useMotionPreference";
 import { useInView } from "framer-motion";
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useRef, type CSSProperties, type ReactNode } from "react";
+import { useHasMounted } from "@/lib/useHasMounted";
 
 type RevealProps = {
   children: ReactNode;
@@ -19,8 +20,7 @@ export function Reveal({ children, className = "", delay = 0, variant = "rise", 
   const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref, { once: true, amount: .16, margin: "0px 0px -12% 0px" });
   const reduced = useReducedMotion();
-  const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
+  const ready = useHasMounted();
   const wait = Math.max(0, Math.min(delay, .3));
   return <Tag ref={ref} className={`reveal reveal-${variant} ${stagger ? "reveal-sequence" : ""} ${eager ? "reveal-eager" : ""} ${ready && !reduced && !eager ? "is-ready" : ""} ${visible || reduced || eager ? "is-revealed" : ""} ${className}`} style={{animationDelay:`${wait}s`,"--reveal-delay":`${wait}s`} as CSSProperties}>{children}</Tag>;
 }

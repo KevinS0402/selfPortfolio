@@ -1,37 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { classifyLink } from "@/lib/analyticsPolicy";
 import { browserBlocksAnalytics, configurePortfolioAnalytics, startPortfolioAnalytics, stopPortfolioAnalytics, trackPortfolioEvent, trackPortfolioPage } from "@/lib/portfolioAnalytics";
 
-const preferenceKey = "portfolio-analytics-disabled-v1";
+function hasStoredOptOut() {
+  try {
+    const saved = localStorage.getItem("portfolio-analytics-disabled-v1");
+    return saved === "1" || (saved === null && localStorage.getItem("portfolio-optional-analytics-v1") === "declined");
+  } catch { return false; }
+}
 export function PortfolioAnalytics({enabled, environment}:{enabled:boolean;environment:"production"|"test"}) {
   const pathname = usePathname();
-  const [disabled,setDisabled] = useState(false);
-  const [loaded,setLoaded] = useState(false);
-  const [blocked,setBlocked] = useState(false);
   const key = process.env.NEXT_PUBLIC_POSTHOG_KEY?.trim() ?? "";
   const host = process.env.NEXT_PUBLIC_POSTHOG_HOST?.trim() ?? "";
   const configured = enabled && Boolean(key && host);
+  useEffect(() => () => stopPortfolioAnalytics(), []);
   useEffect(() => {
-    setBlocked(browserBlocksAnalytics());
-    try {
-      // Honor previously saved opt-outs without writing visitor identifiers.
-      const saved = localStorage.getItem(preferenceKey);
-      setDisabled(saved === "1" || (saved === null && localStorage.getItem("portfolio-optional-analytics-v1") === "declined"));
-    } catch { /* Browser privacy signals still apply if storage is unavailable. */ }
-    setLoaded(true);
-    return () => stopPortfolioAnalytics();
-  }, []);
-  useEffect(() => { if (configured) configurePortfolioAnalytics({key,host,environment}); },[configured,key,host,environment]);
-  useEffect(() => {
-    if (!loaded || !configured || blocked || disabled) { stopPortfolioAnalytics(); return; }
+    if (!configured || browserBlocksAnalytics() || hasStoredOptOut()) { stopPortfolioAnalytics(); return; }
+    configurePortfolioAnalytics({key,host,environment});
     void startPortfolioAnalytics();
     trackPortfolioPage(pathname);
-  },[disabled,loaded,configured,blocked,pathname]);
+  },[configured,key,host,environment,pathname]);
   useEffect(() => {
-    if (!loaded || !configured || blocked || disabled) return;
+    if (!configured || browserBlocksAnalytics() || hasStoredOptOut()) return;
     let scrollTimer: ReturnType<typeof setTimeout> | undefined;
     function clicked(event: MouseEvent) {
       if (event.button !== 0) return;
@@ -65,6 +58,6 @@ export function PortfolioAnalytics({enabled, environment}:{enabled:boolean;envir
     document.addEventListener("focusin",focused);
     window.addEventListener("scroll",scrolled,{passive:true});
     return () => { clearTimeout(scrollTimer); scenes.disconnect(); document.removeEventListener("click",clicked); document.removeEventListener("focusin",focused); window.removeEventListener("scroll",scrolled); };
-  },[disabled,loaded,configured,blocked,pathname]);
+  },[configured,pathname]);
   return null;
 }

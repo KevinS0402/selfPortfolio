@@ -30,15 +30,18 @@ export function ContactCaptcha({ siteKey, onToken, resetCount }: {
     let active = true;
     const target = document.createElement("div");
     container.append(target);
-    try {
-      widget.current = api.render(target, {
-        sitekey: siteKey, theme: "dark", size: "compact",
-        callback: token => { if (active) { onToken(token); setState("ready"); } },
-        "expired-callback": () => { if (active) { onToken(""); setState("expired"); } },
-        "error-callback": () => { if (active) { onToken(""); setState("error"); } },
-      });
-      setState("ready");
-    } catch { setState("error"); }
+    api.ready(() => {
+      if (!active) return;
+      try {
+        widget.current = api.render(target, {
+          sitekey: siteKey, theme: "dark", size: "compact",
+          callback: token => { if (active) { onToken(token); setState("ready"); } },
+          "expired-callback": () => { if (active) { onToken(""); setState("expired"); } },
+          "error-callback": () => { if (active) { onToken(""); setState("error"); } },
+        });
+        setState("ready");
+      } catch { setState("error"); }
+    });
     return () => {
       active = false;
       if (widget.current !== null) { api.reset(widget.current); widget.current = null; }
@@ -56,7 +59,7 @@ export function ContactCaptcha({ siteKey, onToken, resetCount }: {
   useEffect(() => {
     const loaded = () => setReady(true);
     window.portfolioCaptchaReady = loaded;
-    if (window.grecaptcha?.render) loaded();
+    if (window.grecaptcha?.render) window.grecaptcha.ready(loaded);
     return () => { if (window.portfolioCaptchaReady === loaded) delete window.portfolioCaptchaReady; };
   }, []);
 

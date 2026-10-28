@@ -23,7 +23,7 @@ export function WorldExplorer() {
   const reduced = useReducedMotion();
   const space = spaces[stage];
   const [announcement,setAnnouncement]=useState("");
-  selectedSpace.current = stage;
+  useEffect(() => { selectedSpace.current = stage; }, [stage]);
   function selectSpace(index:number,scroll=true) {
     select(index);
     setAnnouncement(`Previewing ${spaces[index].label}. Follow the chapter link to explore.`);

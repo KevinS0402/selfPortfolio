@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
-    "build": "next build",
+    "build": "eslint . && next build",
     "lint": "eslint .",
     "test:contact": "node --test functions/contact-handler.test.mjs",
     "media:build": "node scripts/prepare-media.mjs",
@@ -14,24 +14,24 @@
     "start": "next start"
   },
   "dependencies": {
-    "@next/env": "15.5.28",
+    "@next/env": "16.4.3",
     "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.0.0",
-    "next": "15.5.28",
+    "next": "16.4.3",
     "posthog-js": "^1.438.23",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
     "sharp": "0.35.5",
     "three": "^0.186.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "@types/three": "^0.186.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.0.0",
-    "eslint-config-next": "15.5.28",
+    "eslint-config-next": "16.4.3",
     "postcss": "8.5.30",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.0"

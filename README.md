@@ -1,6 +1,6 @@
 # Kevin Song portfolio
 
-Next.js 15 / React 19 portfolio, prepared for Vercel. The approved black/white/gold design, rooms, interactions, and public page content are preserved.
+Next.js 16.4.3 / React 19.3.1 portfolio, prepared for Vercel. The approved black/white/gold design, rooms, interactions, and public page content are preserved.
 
 ## Local development
 
@@ -27,7 +27,7 @@ No database, CMS, or email inbox is provisioned by the app. Resend sending-domai
 
 ## Production build and verification
 
-- `npm run build` prepares existing imagery and runs a standard Next.js production build.
+- `npm run build` prepares existing imagery, runs ESLint, and runs a Next.js 16 production build with Turbopack and TypeScript checking. ESLint uses the native flat Next.js 16 configuration; lint remains an explicit build gate because Next.js 16 no longer runs it automatically.
 - `npm run start -- --hostname 127.0.0.1 --port 3002` reviews the built application locally.
 - `npm run check:seo` checks prerendered metadata/schema, sitemap, crawler directory, and noindex 404 in the current native build.
 - `node scripts/check-crawl.mjs --base=http://127.0.0.1:3002` checks the served routes, local links/fragments/assets, PDF, slash redirects and real 404s.

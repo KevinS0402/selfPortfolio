@@ -10,9 +10,12 @@ import { Arrow } from "@/components/ui/Arrow";
 
 export function SiteHeader() {
   const pathname = usePathname();
+  return <HeaderForRoute key={pathname} pathname={pathname} />;
+}
+
+function HeaderForRoute({ pathname }: { pathname: string }) {
   const [open, setOpen] = useState(false);
   const toggle = useRef<HTMLButtonElement>(null);
-  useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => {
     if (!open) return;
     const escape = (event: KeyboardEvent) => { if (event.key === "Escape") { setOpen(false); toggle.current?.focus(); } };

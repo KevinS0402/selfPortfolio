@@ -45,6 +45,7 @@ main:focus { outline: none; }
 .button-secondary:hover { border-color: var(--gold); }
 .button:hover .arrow { transform: translateX(4px); }
 .portrait { position: relative; width: 100%; aspect-ratio: 1 / 1.13; overflow: hidden; background: #19191c; transform-style: preserve-3d; }
+.portrait > picture { position: absolute; inset: 0; display: block; }
 .portrait img { object-fit: cover; object-position: center; }
 .portrait-fallback { display: grid; place-items: center; height: 100%; color: var(--gold); font-size: 70px; }
 .home-portrait { padding: 0 0 16px 16px; position: relative; }
